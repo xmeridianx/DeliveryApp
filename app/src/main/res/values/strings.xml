@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">MeatDeliveryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="vegetables">Овощи и фрукты</string>
+    <string name="categories">Категории</string>
+    <string name="bread">Хлеб</string>
+    <string name="grocery">Бакалея</string>
+    <string name="milk_eggs">Молоко, яйца</string>
+    <string name="milk">Молоко</string>
+    <string name="sweets">Сладости</string>
+    <string name="fish">Рыба</string>
+    <string name="meat">Мясо</string>
+    <string name="drinks">Напитки</string>
+    <string name="logged_in_as">login</string>
+    <string name="not_logged_in">notLogin</string>
+    <string name="add">+</string>
+    <string name="delete">-</string>
+    <string name="price">999р</string>
+    <string name="name">название название название название</string>
+    <string name="milk_products_and_eggs">Молочные продукты и яйца</string>
+    <string name="eggs">Яйца</string>
+    <string name="cannedFood">Консерированные продукты</string>
+    <string name="frozenFood">Замороженные продукты</string>
+    <string name="oilAndSpices">Масло и специи</string>
+    <string name="sausage">Колбасы, сосиски</string>
+    <string name="sauce">Соусы</string>
+    <string name="snacks">Снэки</string>
+    <string name="hygiene">Гигиена</string>
+    <string name="coffeeAndTea">Кофе и чай</string>
+    <string name="babyFood">Детские продукты</string>
+    <string name="cleaning">Для дома</string>
+    <string name="medicine">Аптечка</string>
+    <string name="cart">Корзина</string>
+</resources>

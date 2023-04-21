@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "770831476912",
+    "project_id": "delivery-bf3b3",
+    "storage_bucket": "delivery-bf3b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770831476912:android:c5c59d97345423035cb375",
+        "android_client_info": {
+          "package_name": "com.example.meatdeliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770831476912-gkd334c85fls6si82oocf624febvvdgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeg_TihEnxBsRU5elyi9hVajqu_gk072E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770831476912-gkd334c85fls6si82oocf624febvvdgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
