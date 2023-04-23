@@ -13,6 +13,7 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
     private lateinit var onProductChangeListener: OnProductChangeListener
     private lateinit var onProductCountChangeListener: OnProductCountChangeListener
 
+
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView){
         val name: TextView = itemView.findViewById(R.id.textProductName)
         val price: TextView = itemView.findViewById(R.id.textProductPrice)
@@ -35,56 +36,44 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
         //list[position].image
         holder.name.text = list[position].name
         holder.price.text = list[position].price.toString()
+        holder.quantity.text = product.quantity.toString()
 
         Glide.with(holder.itemView.context)
-            .load(product.imageUrl) // URL-адрес изображения из объекта Product
+            .load(product.imageUrl)
             .error(R.drawable.ic_baseline_error_24)
             .into(holder.image)
-        //holder.image.setImageResource(list[position].image)
-            /*holder.buttonAdd.setOnClickListener {
-            addProductToList(list[position])
-        }
-             */
+
         holder.buttonAdd.setOnClickListener {
-            onProductChangeListener.onProductAdded(product)
-            onProductCountChangeListener.onProductCountChanged(list.size)
-            //val currentQuantity = holder.quantity.text.toString().toIntOrNull() ?: 0
+            if (::onProductChangeListener.isInitialized) {
+                onProductChangeListener.onProductAdded(product)
+            }
+            if (::onProductCountChangeListener.isInitialized) {
+                onProductCountChangeListener.onProductCountChanged(list.size)
+            }
+            product.quantity++
             holder.quantity.text = product.quantity.toString()
-            notifyDataSetChanged()
+            notifyItemChanged(position)
         }
-        /*
+
         holder.buttonDelete.setOnClickListener {
-            removeProductFromList(list[position])
-        }
-         */
-        holder.buttonDelete.setOnClickListener {
-            onProductChangeListener.onProductRemoved(product)
-            onProductCountChangeListener.onProductCountChanged(list.size)
-            holder.quantity.text = product.quantity.toString()
-            notifyDataSetChanged()
+            if (product.quantity > 1) {
+                product.quantity--
+                holder.quantity.text = product.quantity.toString()
+                notifyItemChanged(position)
+            } else {
+                onProductChangeListener.onProductRemoved(product)
+                onProductCountChangeListener.onProductCountChanged(list.size)
+                list.removeAt(position)
+                notifyItemRemoved(position)
         }
     }
 
-    fun addProductToList(item: Product) {
-        list.add(item)
-        notifyDataSetChanged()
-    }
-
-    fun removeProductFromList(item: Product) {
-        list.remove(item)
-        notifyDataSetChanged()
-    }
-    fun notifyProductRemoved(product: Product) {
-        val index = list.indexOf(product)
-        if (index != -1) {
-            list.remove(product)
-            notifyItemRemoved(index)
-
-        }
-    }
     fun setOnProductChangeListener(listener: OnProductChangeListener) {
         onProductChangeListener = listener
     }
+
+
+}
 
     override fun getItemCount(): Int {
         return list.size

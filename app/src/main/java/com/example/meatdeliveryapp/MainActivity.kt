@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()).commit()
         binding.bottomAppBar.setOnItemSelectedListener { menuItem -> itemSelected(menuItem)}
-
-
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

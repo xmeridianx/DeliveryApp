@@ -4,25 +4,21 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 data class Product(
-    var id: Int = 0,
-    var type: Int = 0,
+    var id: Int = 1,
     var name: String = "",
     var price: Double = 0.0,
     var imageUrl: String = "",
     var quantity: Int = 1
 ) {
     companion object {
-        fun fromJson(json: String): Product {
-            return Gson().fromJson(json, Product::class.java)
-        }
+        fun fromJson(json: String): Product = Gson().fromJson(json, Product::class.java)
 
-        fun toJsonList(products: List<Product>): String {
-            return Gson().toJson(products)
-        }
+        fun toJson(product: Product): String = Gson().toJson(product)
 
-        fun fromJsonList(json: String): List<Product> {
-            val type = object : TypeToken<List<Product>>() {}.type
-            return Gson().fromJson(json, type)
-        }
+        fun toJsonList(productList: List<Product>): String = Gson().toJson(productList)
+
+        fun fromJsonList(json: String): List<Product> =
+            Gson().fromJson(json, object : TypeToken<List<Product>>() {}.type)
     }
 }
+
