@@ -14,6 +14,7 @@ import com.example.meatdeliveryapp.databinding.FragmentCartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeListener {
     private lateinit var binding: FragmentCartBinding
@@ -41,8 +42,10 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        SingletonCart.loadProductList(requireContext())
         adapter = Adapter(SingletonCart.getProductList().toMutableList())
         //cart.addProducts(readProductsFromSharedPreferences())
+
         binding.toolbarCart
         binding.cartRecycler.layoutManager = LinearLayoutManager(context)
         binding.cartRecycler.adapter = adapter
@@ -53,8 +56,8 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         }
         binding.toolbarCart.setOnMenuItemClickListener { menuItem ->
             if (menuItem.itemId == R.id.menu_delete){
-                cart.clear()
-                updateTotalPrice()
+                SingletonCart.clear()
+                SingletonCart.saveProductList(requireContext())
                 adapter.notifyDataSetChanged()
                 true
             }else{
@@ -64,22 +67,26 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         //binding.totalPriceTextView.text = "Итого: ${totalPrice}"
         //adapter.setOnProductChangeListener(this)
         adapter.setOnProductCountChangeListener(this)
-        adapter.notifyDataSetChanged()
+        updateTotalPrice()
 
+        adapter.notifyDataSetChanged()
         auth = FirebaseAuth.getInstance()
         ref = FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
             .getReference("Users").child(auth.currentUser!!.uid)
 
 
         binding.orderCartButton.setOnClickListener {
-            ref.child("Users").child(auth.currentUser!!.uid).child("products")
+            ref.child(auth.currentUser!!.uid).child("products")
                 .setValue(SingletonCart.getProductList().toString())
             ref =
                 FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
                     .getReference("Users").child(auth.currentUser!!.uid)
 
             setDatabaseListener()
-            cart.clear()
+            SingletonCart.clear()
+            SingletonCart.saveProductList(requireContext())
+
+            adapter.notifyDataSetChanged()
             updateTotalPrice()
             //
             ref.addValueEventListener(object : ValueEventListener {
@@ -89,9 +96,10 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
                 override fun onCancelled(@NonNull error: DatabaseError) {}
             })
+            adapter.notifyDataSetChanged()
         }
 
-
+        updateTotalPrice()
     }
 
     override fun onProductAdded(product: Product) {
@@ -101,7 +109,11 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         } else {
             SingletonCart.addProduct(product)
         }
-        saveProductsToSharedPreferences(SingletonCart.getProductList())
+        updateTotalPrice()
+        adapter.notifyDataSetChanged()
+    }
+    override fun onResume() {
+        super.onResume()
         updateTotalPrice()
     }
 
@@ -112,27 +124,26 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
             if (SingletonCart.getProductList()[index].quantity == 0) {
                 SingletonCart.deleteProduct(product)
             }
-            saveProductsToSharedPreferences(SingletonCart.getProductList())
             updateTotalPrice()
+            adapter.notifyDataSetChanged()
         }
     }
 
-
-
-    private fun updateTotalPrice() {
-        val totalPriceTextView: TextView = binding.totalPriceTextView
-        val productList: MutableList<Product> = SingletonCart.getProductList() as MutableList<Product>
-        totalPrice = calculateTotalPrice(productList)
-        totalPriceTextView.text = "Итого: ${"%.2f".format(totalPrice + 190)} Р"
-    }
-
     private fun calculateTotalPrice(cart: MutableList<Product>): Double {
-        var totalPrice = 0.0
+        totalPrice = 0.0
         for (product in cart) {
             totalPrice += product.price * product.quantity
         }
         return totalPrice
     }
+
+    private fun updateTotalPrice() {
+        val productList: MutableList<Product> = SingletonCart.getProductList() as MutableList<Product>
+        totalPrice = calculateTotalPrice(productList)
+        binding.totalPriceTextView.text = "Итого: ${"%.2f".format(totalPrice + 190)} Р"
+    }
+
+
 
     private fun setDatabaseListener() {
         ref.child("Users").child(auth.currentUser!!.uid).child("products")
@@ -155,6 +166,10 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
             })
     }
 
+
+
+
+
     companion object {
 
         @JvmStatic
@@ -165,11 +180,19 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        updateTotalPrice()
+        SingletonCart.saveProductList(requireContext())
+    }
+/*
     private fun saveProductsToSharedPreferences(products: List<Product>) {
 
         val productsJson = gson.toJson(products)
         sharedPreferences.edit().putStringSet("products_list", setOf(productsJson)).apply()
     }
+
+ */
 /*
     private fun readProductsFromSharedPreferences(): MutableList<Product> {
 

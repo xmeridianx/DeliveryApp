@@ -34,6 +34,7 @@ class BreadFragment : Fragment() {
 
 
     private lateinit var product1Ref: DatabaseReference
+    private lateinit var product2Ref: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +53,7 @@ class BreadFragment : Fragment() {
 
     private fun updateQuantity() {
         binding.textViewQuantity11.text = SingletonCart.getQuantity(1).toString()
+        binding.textViewQuantity12.text = SingletonCart.getQuantity(2).toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,13 +63,16 @@ class BreadFragment : Fragment() {
         binding.toolbarBread.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
-
+        SingletonCart.loadProductList(requireContext())
         val imageRef = storageRef.child("images/banani.jpg")
         product1Ref = productsRef.child("Хлеб").child("products").child("product1")
+        product2Ref = productsRef.child("Хлеб").child("products").child("product2")
         product1Ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d(TAG, "Data retrieved from Firebase: $snapshot")
                 val product = snapshot.getValue(Product::class.java)
+
+
                 binding.textViewName11.text = "${product?.name}"
                 binding.textViewPrice11.text = "${product?.price}"
                 Glide.with(this@BreadFragment)
@@ -103,7 +108,47 @@ class BreadFragment : Fragment() {
 
                 }
 
+
+
+            binding.textViewName12.text = "${product?.name}"
+            binding.textViewPrice12.text = "${product?.price}"
+            Glide.with(this@BreadFragment)
+            .load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fborodin.jpg?alt=media&token=aab7e9d2-e8a8-4bec-af2f-ee8db6155b59")
+            .error(R.drawable.ic_baseline_error_24)
+            .into(binding.imageView12)
+
+            binding.buttonAdd12.setOnClickListener {
+
+                val list = SingletonCart
+                list.addProduct (
+                    Product(
+                        quantity = 1,
+                        id = 2,
+                        name = "${product?.name}",
+                        price = product?.price!!.toDouble(),
+                        imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fborodin.jpg?alt=media&token=aab7e9d2-e8a8-4bec-af2f-ee8db6155b59"
+                    )
+                )
+                Log.d(TAG, "Product added to cart: $product")
+
+                updateQuantity()
+                binding.textViewQuantity12.visibility = VISIBLE
+                Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
             }
+
+            binding.buttonDelete12.setOnClickListener {
+
+                SingletonCart.deleteProduct(product!!)
+
+                updateQuantity()
+                Toast.makeText(activity, "Уделено из корзины", Toast.LENGTH_SHORT).show()
+
+            }
+
+        }
+
+
+
 
             override fun onCancelled(error: DatabaseError) {
 
@@ -114,6 +159,7 @@ class BreadFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        SingletonCart.saveProductList(requireContext())
         saveData()
     }
 

@@ -176,6 +176,17 @@
                                 android:layout_weight="1"
                                 android:backgroundTint="@color/sea_green"
                                 android:text="@string/add" />
+                            <TextView
+                                android:id="@+id/textViewQuantity12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:visibility="invisible"
+                                android:text="1"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="normal" />
                             <Button
                                 android:id="@+id/buttonDelete12"
                                 android:layout_width="40dp"

@@ -3,6 +3,7 @@ package com.example.meatdeliveryapp
 import android.content.Context
 import com.example.meatdeliveryapp.categories.MyApp
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 object SingletonCart {
     private var productList = mutableListOf<Product>()
@@ -52,20 +53,22 @@ object SingletonCart {
 
     }
 
-}
-/*
-    fun saveData(context: Context) {
-        val jsonString = gson.toJson(productList)
-        val file = File(context.filesDir, "product_list.json")
-        file.writeText(jsonString)
-    }
-    fun loadData(context: Context) {
-        val file = File(context.filesDir, "product_list.json")
-        if (file.exists()) {
-            val jsonString = file.readText()
-            val listType = object : TypeToken<List<Product>>() {}.type
-            productList = gson.fromJson(jsonString, listType)
+
+
+    fun saveProductList(context: Context) {
+        val sharedPref = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("product_list", gson.toJson(productList))
+            apply()
         }
     }
 
-      */
+    fun loadProductList(context: Context) {
+        val sharedPref = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        val productListJson = sharedPref.getString("product_list", null)
+        if (productListJson != null) {
+            val productListType = object : TypeToken<MutableList<Product>>() {}.type
+            productList = Gson().fromJson(productListJson, productListType)
+        }
+    }
+}
