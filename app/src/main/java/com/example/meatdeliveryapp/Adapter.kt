@@ -3,7 +3,7 @@ package com.example.meatdeliveryapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +18,8 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
         val name: TextView = itemView.findViewById(R.id.textProductName)
         val price: TextView = itemView.findViewById(R.id.textProductPrice)
         val image: ImageView = itemView.findViewById(R.id.imageProduct)
-        val buttonAdd: Button = itemView.findViewById(R.id.buttonProductAdd)
-        val buttonDelete: Button = itemView.findViewById(R.id.buttonProductDelete)
+        val buttonAdd: ImageButton = itemView.findViewById(R.id.buttonProductAdd)
+        val buttonDelete: ImageButton = itemView.findViewById(R.id.buttonProductDelete)
         val quantity: TextView = itemView.findViewById(R.id.textProductQuantity)
     }
     fun setOnProductCountChangeListener(listener: OnProductCountChangeListener) {

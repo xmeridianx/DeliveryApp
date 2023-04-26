@@ -61,25 +61,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonProductAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/sea_green"
-            android:text="@string/add" />
+            android:backgroundTint="@color/white"
+            android:src="@drawable/add_button" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonProductDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:backgroundTint="#C8C6C6"
-            android:text="@string/delete" />
+            android:backgroundTint="@color/white"
+            android:src="@drawable/delete_button" />
     </LinearLayout>
 
 

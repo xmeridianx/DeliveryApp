@@ -82,9 +82,13 @@ class productBase {
         val medicineRef = categoryRefs[17]
 
 
-        breadRef.child("products").child("product101").setValue(ProductTest("Хлеб 1", 10))
-        breadRef.child("products").child("product101").setValue(ProductTest("хлеб 2", 20))
-
+        breadRef.child("products").child("product101").setValue(ProductTest(101,"Хлеб 1", 55,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        breadRef.child("products").child("product102").setValue(ProductTest(102,"хлеб 2", 20,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fborodin.jpg?alt=media&token=aab7e9d2-e8a8-4bec-af2f-ee8db6155b59"))
+        breadRef.child("products").child("product103").setValue(ProductTest(103,"хлеб 3", 33,
+        "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"))
+/*
         meatRef.child("products").child("product201").setValue(ProductTest("мясо 1", 30))
         meatRef.child("products").child("product202").setValue(ProductTest("Mясо 2", 40))
 
@@ -105,6 +109,8 @@ class productBase {
         hygieneRef.child("products").child("product1601").setValue(ProductTest("ррррр", 40))
         cleaningRef.child("products").child("product1701").setValue(ProductTest("ррррр", 40))
         medicineRef.child("products").child("product1801").setValue(ProductTest("ррррр", 40))
+
+ */
     }
 }
 

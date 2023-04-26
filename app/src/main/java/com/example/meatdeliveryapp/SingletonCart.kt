@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken
 
 object SingletonCart {
     private var productList = mutableListOf<Product>()
-    val gson = Gson()
+    private val gson = Gson()
 
     fun addProduct(product: Product) {
         val existingProduct = productList.find { it.id == product.id }
@@ -17,7 +17,19 @@ object SingletonCart {
             productList.add(product)
         }
     }
+    /*
+    fun deleteProduct(product: Product) {
+        val productToDelete = productList.findLast { it.id == product.id }
+        if (productToDelete != null) {
+            if (productToDelete.quantity > 1) {
+                productToDelete.quantity -= 1
+            } else {
+                productList.remove(productToDelete)
+            }
+        }
+    }
 
+     */
     fun deleteProduct(product: Product) {
         val productToDelete = productList.findLast { it.id == product.id }
         if (productToDelete != null) {

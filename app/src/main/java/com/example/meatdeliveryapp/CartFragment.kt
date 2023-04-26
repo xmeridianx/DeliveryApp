@@ -16,7 +16,10 @@ import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
+const val PREFERENCES_NAME = "my_preferences"
+
 class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeListener {
+
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: Adapter
     private lateinit var auth: FirebaseAuth
@@ -49,7 +52,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         binding.toolbarCart
         binding.cartRecycler.layoutManager = LinearLayoutManager(context)
         binding.cartRecycler.adapter = adapter
-        adapter.notifyDataSetChanged()
+        //adapter.notifyDataSetChanged()
 
         binding.toolbarCart.setNavigationOnClickListener {
             requireActivity().onBackPressed()
@@ -146,7 +149,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
 
     private fun setDatabaseListener() {
-        ref.child("Users").child(auth.currentUser!!.uid).child("products")
+        ref.child(auth.currentUser!!.uid).child("products")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val products = snapshot.value as? MutableList<String>

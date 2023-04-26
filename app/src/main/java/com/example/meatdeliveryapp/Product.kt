@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 data class Product(
-    var id: Int = 1,
+    var id: Int = 101,
     var name: String = "",
     var price: Double = 0.0,
     var imageUrl: String = "",
