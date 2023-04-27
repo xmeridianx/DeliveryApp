@@ -17,19 +17,7 @@ object SingletonCart {
             productList.add(product)
         }
     }
-    /*
-    fun deleteProduct(product: Product) {
-        val productToDelete = productList.findLast { it.id == product.id }
-        if (productToDelete != null) {
-            if (productToDelete.quantity > 1) {
-                productToDelete.quantity -= 1
-            } else {
-                productList.remove(productToDelete)
-            }
-        }
-    }
 
-     */
     fun deleteProduct(product: Product) {
         val productToDelete = productList.findLast { it.id == product.id }
         if (productToDelete != null) {
@@ -51,7 +39,10 @@ object SingletonCart {
 
 
     fun getQuantity(id: Int): Int {
-        val product = productList.find { it.id == id }
+        if (productList == null) {
+            return 0
+        }
+        val product = productList?.find { it.id == id }
         return product?.quantity ?: 0
     }
 

@@ -39,7 +39,7 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
         holder.quantity.text = product.quantity.toString()
 
         Glide.with(holder.itemView.context)
-            .load(product.imageUrl)
+            .load(product.image)
             .error(R.drawable.ic_baseline_error_24)
             .into(holder.image)
 

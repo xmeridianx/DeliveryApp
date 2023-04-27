@@ -1,6 +1,7 @@
 package com.example.meatdeliveryapp.categories
 
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.meatdeliveryapp.Product
 import com.example.meatdeliveryapp.R
@@ -24,7 +25,7 @@ class BreadFragment : Fragment() {
     private lateinit var binding: FragmentBreadBinding
     private val storageRef = Firebase.storage.reference
 
-    //private var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "BreadFragment"
 
     private lateinit var productRefs: Array<DatabaseReference>
@@ -65,24 +66,168 @@ class BreadFragment : Fragment() {
 
 
 
+
         productRefs[0].get().addOnSuccessListener { dataSnapshot ->
             val product101 = dataSnapshot.getValue<Product>()
             binding.textViewName11.text = "${product101?.name}"
             binding.textViewPrice11.text = "${product101?.price}"
-            Glide.with(this@BreadFragment)
-                .load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315")
-                .error(R.drawable.ic_baseline_error_24)
-                .into(binding.imageView101)
+            val productImage = "${product101?.image}"
+            loadImageWithGlide(productImage, binding.imageView101)
+
             binding.buttonAddToCart11.setOnClickListener {
-                addProductAndHideView(product101!!)
+                addProduct(product101!!)
+                hideView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
             }
             binding.buttonAdd11.setOnClickListener {
                 addProduct(product101!!)
             }
             binding.buttonDelete11.setOnClickListener {
                     deleteProduct(product101!!)
+                if (SingletonCart.getQuantity(101) == 0){
+                    showView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
+                }
             }
         }
+
+        productRefs[1].get().addOnSuccessListener { dataSnapshot ->
+            val product102 = dataSnapshot.getValue<Product>()
+            binding.textViewName12.text = "${product102?.name}"
+            binding.textViewPrice12.text = "${product102?.price}"
+            val productImage = "${product102?.image}"
+            loadImageWithGlide(productImage, binding.imageView102)
+
+            binding.buttonAddToCart12.setOnClickListener {
+                addProduct(product102!!)
+                hideView(
+                    binding.buttonDelete12,
+                    binding.textViewQuantity12,
+                    binding.buttonAdd12,
+                    binding.buttonAddToCart12
+                )
+            }
+            binding.buttonAdd12.setOnClickListener {
+                addProduct(product102!!)
+            }
+            binding.buttonDelete12.setOnClickListener {
+                deleteProduct(product102!!)
+                if (SingletonCart.getQuantity(102) == 0) {
+                    showView(
+                        binding.buttonDelete12,
+                        binding.textViewQuantity12,
+                        binding.buttonAdd12,
+                        binding.buttonAddToCart12
+                    )
+                }
+            }
+        }
+
+        productRefs[2].get().addOnSuccessListener { dataSnapshot ->
+            val product103 = dataSnapshot.getValue<Product>()
+            binding.textViewName13.text = "${product103?.name}"
+            binding.textViewPrice13.text = "${product103?.price}"
+            val productImage = "${product103?.image}"
+            loadImageWithGlide(productImage, binding.imageView103)
+
+            binding.buttonAddToCart13.setOnClickListener {
+                addProduct(product103!!)
+                hideView(
+                    binding.buttonDelete13,
+                    binding.textViewQuantity13,
+                    binding.buttonAdd13,
+                    binding.buttonAddToCart13
+                )
+            }
+            binding.buttonAdd13.setOnClickListener {
+                addProduct(product103!!)
+            }
+            binding.buttonDelete13.setOnClickListener {
+                deleteProduct(product103!!)
+                if (SingletonCart.getQuantity(103) == 0) {
+                    showView(
+                        binding.buttonDelete13,
+                        binding.textViewQuantity13,
+                        binding.buttonAdd13,
+                        binding.buttonAddToCart13
+                    )
+                }
+            }
+        }
+
+
+    }
+    override fun onPause() {
+        super.onPause()
+        SingletonCart.saveProductList(requireContext())
+        saveData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateQuantity()
+            hideView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
+
+            hideView(binding.buttonDelete12, binding.textViewQuantity12, binding.buttonAdd12, binding.buttonAddToCart12)
+
+            hideView(binding.buttonDelete13, binding.textViewQuantity13, binding.buttonAdd13, binding.buttonAddToCart13)
+
+    }
+
+    private fun loadImageWithGlide(imageUrl: String, imageView: ImageView) {
+        Glide.with(this@BreadFragment)
+            .load(imageUrl)
+            .error(R.drawable.ic_baseline_error_24)
+            .into(imageView)
+    }
+
+    private fun deleteProduct(product: Product) {
+        SingletonCart.deleteProduct(product)
+        updateQuantity()
+        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addProduct(product: Product) {
+        list.addProduct(
+            Product(
+                quantity = 1,
+                name = product.name,
+                id = product.id,
+                price = product.price,
+                image = product.image
+            )
+        )
+        updateQuantity()
+        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun hideView(buttonDelete: ImageButton, textViewQuantity: TextView, buttonAdd: ImageButton, buttonAddToCart: Button) {
+        buttonDelete.visibility = VISIBLE
+        textViewQuantity.visibility = VISIBLE
+        buttonAdd.visibility = VISIBLE
+        buttonAddToCart.visibility = GONE
+    }
+
+    private fun showView(buttonDelete: ImageButton, textViewQuantity: TextView, buttonAdd: ImageButton, buttonAddToCart: Button) {
+        buttonDelete.visibility = GONE
+        textViewQuantity.visibility = GONE
+        buttonAdd.visibility = GONE
+        buttonAddToCart.visibility = VISIBLE
+    }
+
+
+    private fun saveData() {
+
+    }
+
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = BreadFragment()
+    }
+}
+
+
+
+
 /*
         product1Ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -144,64 +289,64 @@ class BreadFragment : Fragment() {
  */
 
 
-        /*
-        product1Ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val product = snapshot.getValue(Product::class.java)
-                binding.textViewName11.text = "${product?.name}"
-                binding.textViewPrice11.text = "${product?.price}"
-                Glide.with(this@BreadFragment)
-                    .load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab")
-                    .error(R.drawable.ic_baseline_error_24)
-                    .into(binding.imageView11)
-                binding.buttonAddToCart11.setOnClickListener {
-                    val list = SingletonCart
-                    list.addProduct(
-                        Product(
-                            quantity = 1,
-                            id = 1,
-                            name = "${product?.name}",
-                            price = product?.price!!.toDouble(),
-                            imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
-                        )
-                    )
-                    Log.d(TAG, "Product added to cart: $product")
-                    updateQuantity()
-                    binding.buttonDelete11.visibility = VISIBLE
-                    binding.textViewQuantity11.visibility = VISIBLE
-                    binding.buttonAdd11.visibility = VISIBLE
-                    binding.buttonAddToCart11.visibility = GONE
-                    Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-                }
-                binding.buttonAdd11.setOnClickListener {
-                    val list = SingletonCart
-                    list.addProduct(
-                        Product(
-                            quantity = 1,
-                            id = 1,
-                            name = "${product?.name}",
-                            price = product?.price!!.toDouble(),
-                            imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
-                        )
-                    )
-                    Log.d(TAG, "Product added to cart: $product")
-                    updateQuantity()
-                    binding.textViewQuantity11.visibility = VISIBLE
-                    Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-                }
-                binding.buttonDelete11.setOnClickListener {
-                    SingletonCart.deleteProduct(product!!)
-                    updateQuantity()
-                    Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
-                }
-            }
+/*
+product1Ref.addValueEventListener(object : ValueEventListener {
+    override fun onDataChange(snapshot: DataSnapshot) {
+        val product = snapshot.getValue(Product::class.java)
+        binding.textViewName11.text = "${product?.name}"
+        binding.textViewPrice11.text = "${product?.price}"
+        Glide.with(this@BreadFragment)
+            .load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab")
+            .error(R.drawable.ic_baseline_error_24)
+            .into(binding.imageView11)
+        binding.buttonAddToCart11.setOnClickListener {
+            val list = SingletonCart
+            list.addProduct(
+                Product(
+                    quantity = 1,
+                    id = 1,
+                    name = "${product?.name}",
+                    price = product?.price!!.toDouble(),
+                    imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
+                )
+            )
+            Log.d(TAG, "Product added to cart: $product")
+            updateQuantity()
+            binding.buttonDelete11.visibility = VISIBLE
+            binding.textViewQuantity11.visibility = VISIBLE
+            binding.buttonAdd11.visibility = VISIBLE
+            binding.buttonAddToCart11.visibility = GONE
+            Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+        }
+        binding.buttonAdd11.setOnClickListener {
+            val list = SingletonCart
+            list.addProduct(
+                Product(
+                    quantity = 1,
+                    id = 1,
+                    name = "${product?.name}",
+                    price = product?.price!!.toDouble(),
+                    imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
+                )
+            )
+            Log.d(TAG, "Product added to cart: $product")
+            updateQuantity()
+            binding.textViewQuantity11.visibility = VISIBLE
+            Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+        }
+        binding.buttonDelete11.setOnClickListener {
+            SingletonCart.deleteProduct(product!!)
+            updateQuantity()
+            Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-            override fun onCancelled(error: DatabaseError) {
+    override fun onCancelled(error: DatabaseError) {
 
-            }
-        })
+    }
+})
 
-         */
+ */
 
 
 /*
@@ -346,74 +491,6 @@ class BreadFragment : Fragment() {
 
             }
  */
-    }
-
-    private fun deleteProduct(product: Product) {
-        SingletonCart.deleteProduct(product)
-        updateQuantity()
-        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun loadImageWithGlide(imageUrl: String) {
-        Glide.with(this@BreadFragment)
-            .load(imageUrl)
-            .error(R.drawable.ic_baseline_error_24)
-            .into(binding.imageView101)
-    }
-
-    private fun addProductAndHideView(product: Product) {
-        list.addProduct(
-            Product(
-                quantity = 1,
-                name = product.name,
-                id = product.id,
-                price = product.price.toDouble(),
-                imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"
-            )
-        )
-        hideView()
-        updateQuantity()
-        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun addProduct(product: Product) {
-        list.addProduct(
-            Product(
-                quantity = 1,
-                name = product.name,
-                id = product.id,
-                price = product.price.toDouble(),
-                imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
-            )
-        )
-        updateQuantity()
-        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun hideView() {
-        binding.buttonDelete11.visibility = VISIBLE
-        binding.textViewQuantity11.visibility = VISIBLE
-        binding.buttonAdd11.visibility = VISIBLE
-        binding.buttonAddToCart11.visibility = GONE
-    }
-
-    override fun onPause() {
-        super.onPause()
-        SingletonCart.saveProductList(requireContext())
-        saveData()
-    }
-
-    private fun saveData() {
-
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = BreadFragment()
-    }
-}
-
             /*
             binding.textViewName13.text = "${product?.name}"
         binding.textViewPrice13.text = "${product?.price}"
