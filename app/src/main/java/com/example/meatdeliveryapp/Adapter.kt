@@ -68,11 +68,6 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
         }
     }
 
-    fun setOnProductChangeListener(listener: OnProductChangeListener) {
-        onProductChangeListener = listener
-    }
-
-
 }
 
     override fun getItemCount(): Int {
