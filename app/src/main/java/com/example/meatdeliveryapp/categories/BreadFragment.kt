@@ -10,34 +10,39 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.meatdeliveryapp.Adapter
 import com.example.meatdeliveryapp.Product
 import com.example.meatdeliveryapp.R
 import com.example.meatdeliveryapp.SingletonCart
 import com.example.meatdeliveryapp.databinding.FragmentBreadBinding
+import com.example.meatdeliveryapp.recyclerProduct.AdapterProduct
+import com.example.meatdeliveryapp.recyclerProduct.OnProductClickListener
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
 
-class BreadFragment : Fragment() {
+class BreadFragment : Fragment(), OnProductClickListener {
     private lateinit var binding: FragmentBreadBinding
     private val storageRef = Firebase.storage.reference
-
+    private lateinit var adapter: AdapterProduct
     private lateinit var sharedPreferences: SharedPreferences
     private val TAG = "BreadFragment"
 
     private lateinit var productRefs: Array<DatabaseReference>
-    private val list = SingletonCart
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBreadBinding.inflate(inflater)
+        binding = FragmentBreadBinding.inflate(layoutInflater)
         return binding.root
     }
-
+/*
     private fun updateQuantity() {
         val quantities = arrayOf(
             SingletonCart.getQuantity(101).toString(),
@@ -49,6 +54,8 @@ class BreadFragment : Fragment() {
         binding.textViewQuantity13.text = quantities[2]
     }
 
+ */
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val database = FirebaseDatabase.getInstance()
@@ -58,20 +65,29 @@ class BreadFragment : Fragment() {
         }
         SingletonCart.loadProductList(requireContext())
         //val imageRef = storageRef.child("images/banani.jpg")
+
         productRefs = arrayOf(
             categoryRef.child("Хлеб").child("products").child("product101"),
             categoryRef.child("Хлеб").child("products").child("product102"),
             categoryRef.child("Хлеб").child("products").child("product103")
         )
-
-
-
+        val productList = mutableListOf<Product>()
 
         productRefs[0].get().addOnSuccessListener { dataSnapshot ->
             val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
             binding.textViewName11.text = "${product101?.name}"
             binding.textViewPrice11.text = "${product101?.price}"
+
             val productImage = "${product101?.image}"
+            adapter = AdapterProduct(productList, this)
+            val layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL, false
+            )
+            binding.recyclerBread.adapter = adapter
+            binding.recyclerBread.layoutManager = layoutManager
+            /*
             loadImageWithGlide(productImage, binding.imageView101)
 
             binding.buttonAddToCart11.setOnClickListener {
@@ -82,111 +98,90 @@ class BreadFragment : Fragment() {
                 addProduct(product101!!)
             }
             binding.buttonDelete11.setOnClickListener {
-                    deleteProduct(product101!!)
+                deleteProduct(product101!!)
                 if (SingletonCart.getQuantity(101) == 0){
                     showView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
                 }
-            }
+
+             */
+
         }
-
         productRefs[1].get().addOnSuccessListener { dataSnapshot ->
-            val product102 = dataSnapshot.getValue<Product>()
-            binding.textViewName12.text = "${product102?.name}"
-            binding.textViewPrice12.text = "${product102?.price}"
-            val productImage = "${product102?.image}"
-            loadImageWithGlide(productImage, binding.imageView102)
+            val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
+            binding.textViewName11.text = "${product101?.name}"
+            binding.textViewPrice11.text = "${product101?.price}"
 
-            binding.buttonAddToCart12.setOnClickListener {
-                addProduct(product102!!)
-                hideView(
-                    binding.buttonDelete12,
-                    binding.textViewQuantity12,
-                    binding.buttonAdd12,
-                    binding.buttonAddToCart12
-                )
-            }
-            binding.buttonAdd12.setOnClickListener {
-                addProduct(product102!!)
-            }
-            binding.buttonDelete12.setOnClickListener {
-                deleteProduct(product102!!)
-                if (SingletonCart.getQuantity(102) == 0) {
-                    showView(
-                        binding.buttonDelete12,
-                        binding.textViewQuantity12,
-                        binding.buttonAdd12,
-                        binding.buttonAddToCart12
-                    )
-                }
-            }
+            val productImage = "${product101?.image}"
+            adapter = AdapterProduct(productList, this)
+            val layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL, false
+            )
+            binding.recyclerBread.adapter = adapter
+            binding.recyclerBread.layoutManager = layoutManager
         }
 
         productRefs[2].get().addOnSuccessListener { dataSnapshot ->
-            val product103 = dataSnapshot.getValue<Product>()
-            binding.textViewName13.text = "${product103?.name}"
-            binding.textViewPrice13.text = "${product103?.price}"
-            val productImage = "${product103?.image}"
-            loadImageWithGlide(productImage, binding.imageView103)
+            val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
+            binding.textViewName11.text = "${product101?.name}"
+            binding.textViewPrice11.text = "${product101?.price}"
 
-            binding.buttonAddToCart13.setOnClickListener {
-                addProduct(product103!!)
-                hideView(
-                    binding.buttonDelete13,
-                    binding.textViewQuantity13,
-                    binding.buttonAdd13,
-                    binding.buttonAddToCart13
-                )
-            }
-            binding.buttonAdd13.setOnClickListener {
-                addProduct(product103!!)
-            }
-            binding.buttonDelete13.setOnClickListener {
-                deleteProduct(product103!!)
-                if (SingletonCart.getQuantity(103) == 0) {
-                    showView(
-                        binding.buttonDelete13,
-                        binding.textViewQuantity13,
-                        binding.buttonAdd13,
-                        binding.buttonAddToCart13
-                    )
-                }
-            }
+            val productImage = "${product101?.image}"
+            adapter = AdapterProduct(productList, this)
+            val layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL, false
+            )
+            binding.recyclerBread.adapter = adapter
+            binding.recyclerBread.layoutManager = layoutManager
         }
+            /*
+        loadImageWithGlide(productImage, binding.imageView101)
+
+        binding.buttonAddToCart11.setOnClickListener {
+            addProduct(product101!!)
+            hideView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
+        }
+        binding.buttonAdd11.setOnClickListener {
+            addProduct(product101!!)
+        }
+        binding.buttonDelete11.setOnClickListener {
+            deleteProduct(product101!!)
+            if (SingletonCart.getQuantity(101) == 0){
+                showView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
+            }
+
+         */
 
 
     }
+
     override fun onPause() {
         super.onPause()
         SingletonCart.saveProductList(requireContext())
-        saveData()
+
     }
 
     override fun onResume() {
+        SingletonCart.loadProductList(requireContext())
         super.onResume()
-        updateQuantity()
-            hideView(binding.buttonDelete11, binding.textViewQuantity11, binding.buttonAdd11, binding.buttonAddToCart11)
+        //updateQuantity()
+        //binding.buttonDelete11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
+        //binding.textViewQuantity11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
+        //binding.buttonAdd11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
 
-            hideView(binding.buttonDelete12, binding.textViewQuantity12, binding.buttonAdd12, binding.buttonAddToCart12)
-
-            hideView(binding.buttonDelete13, binding.textViewQuantity13, binding.buttonAdd13, binding.buttonAddToCart13)
 
     }
 
-    private fun loadImageWithGlide(imageUrl: String, imageView: ImageView) {
-        Glide.with(this@BreadFragment)
-            .load(imageUrl)
-            .error(R.drawable.ic_baseline_error_24)
-            .into(imageView)
+    companion object {
+        @JvmStatic
+        fun newInstance() = BreadFragment()
     }
 
-    private fun deleteProduct(product: Product) {
-        SingletonCart.deleteProduct(product)
-        updateQuantity()
-        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun addProduct(product: Product) {
-        list.addProduct(
+    override fun onAddProduct(product: Product) {
+        SingletonCart.addProduct(
             Product(
                 quantity = 1,
                 name = product.name,
@@ -195,37 +190,14 @@ class BreadFragment : Fragment() {
                 image = product.image
             )
         )
-        updateQuantity()
         Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
     }
 
-    private fun hideView(buttonDelete: ImageButton, textViewQuantity: TextView, buttonAdd: ImageButton, buttonAddToCart: Button) {
-        buttonDelete.visibility = VISIBLE
-        textViewQuantity.visibility = VISIBLE
-        buttonAdd.visibility = VISIBLE
-        buttonAddToCart.visibility = GONE
-    }
-
-    private fun showView(buttonDelete: ImageButton, textViewQuantity: TextView, buttonAdd: ImageButton, buttonAddToCart: Button) {
-        buttonDelete.visibility = GONE
-        textViewQuantity.visibility = GONE
-        buttonAdd.visibility = GONE
-        buttonAddToCart.visibility = VISIBLE
-    }
-
-
-    private fun saveData() {
-
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = BreadFragment()
+    override fun onDeleteProduct(product: Product) {
+        SingletonCart.deleteProduct(product)
+        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
     }
 }
-
-
 
 
 /*

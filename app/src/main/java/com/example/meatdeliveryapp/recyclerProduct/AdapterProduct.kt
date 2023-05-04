@@ -2,24 +2,52 @@ package com.example.meatdeliveryapp.recyclerProduct
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.meatdeliveryapp.*
+import com.example.meatdeliveryapp.databinding.ItemProductBinding
 
-class AdapterProduct(private val list: MutableList<Product>) : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
-    private lateinit var onProductChangeListener: OnProductChangeListener
-    private lateinit var onProductCountChangeListener: OnProductCountChangeListener
+class AdapterProduct(private val productList: List<Product>, private val listener: OnProductClickListener) : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
+
+
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView){
-        val name: TextView = itemView.findViewById(R.id.textViewName11)
-        val price: TextView = itemView.findViewById(R.id.textViewPrice11)
-        val image: ImageView = itemView.findViewById(R.id.imageView101)
-        val buttonAdd: ImageButton = itemView.findViewById(R.id.buttonAddToCart11)
-        val buttonDelete: ImageButton = itemView.findViewById(R.id.buttonDelete11)
-        val quantity: TextView = itemView.findViewById(R.id.textViewQuantity11)
+        private val binding = ItemProductBinding.bind(itemView)
+        val buttonAddToCartItem: Button = binding.buttonAddToCartItem
+        val buttonDeleteItem: ImageButton = binding.buttonDeleteItem
+        val buttonAddItem: ImageButton = binding.buttonAddItem
+        val textViewQuantityItem: TextView =  binding.textViewQuantityItem
+
+        fun bind(product: Product) {
+            binding.textViewNameItem.text = product.name
+            binding.textViewPriceItem.text = product.price.toString()
+            val quantity = SingletonCart.getQuantity(product.id)
+            if (quantity == 0) {
+                showView(buttonDeleteItem, textViewQuantityItem, buttonAddItem, buttonAddToCartItem)
+            } else {
+                textViewQuantityItem.text = quantity.toString()
+                hideView(buttonDeleteItem, textViewQuantityItem, buttonAddItem, buttonAddToCartItem)
+            }
+        }
+
+        private fun showView(buttonDeleteItem: ImageButton, textViewQuantityItem: TextView, buttonAddItem: ImageButton, buttonAddToCartItem: Button) {
+            buttonDeleteItem.visibility = GONE
+            textViewQuantityItem.visibility = GONE
+            buttonAddItem.visibility = GONE
+            buttonAddToCartItem.visibility = VISIBLE
+        }
+        private fun hideView(buttonDeleteItem: ImageButton, textViewQuantityItem: TextView, buttonAddItem: ImageButton, buttonAddToCartItem: Button) {
+            buttonDeleteItem.visibility = VISIBLE
+            textViewQuantityItem.visibility = VISIBLE
+            buttonAddItem.visibility = VISIBLE
+            buttonAddToCartItem.visibility = GONE
+        }
     }
 
 
@@ -30,46 +58,48 @@ class AdapterProduct(private val list: MutableList<Product>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position]
-        //list[position].image
-        holder.name.text = "aaaaaa"
-        holder.price.text = "11"
-        holder.quantity.text = "1"
+        val product = productList[position]
+        holder.bind(product)
 
-        Glide.with(holder.itemView.context)
-            .load(product.image)
-            .error(R.drawable.ic_baseline_error_24)
-            .into(holder.image)
-
-        holder.buttonAdd.setOnClickListener {
-            if (::onProductChangeListener.isInitialized) {
-                onProductChangeListener.onProductAdded(product)
-            }
-            if (::onProductCountChangeListener.isInitialized) {
-                onProductCountChangeListener.onProductCountChanged(list.size)
-            }
-            product.quantity++
-            holder.quantity.text = product.quantity.toString()
-            notifyItemChanged(position)
+        holder.buttonAddToCartItem.setOnClickListener {
+            SingletonCart.addProduct(product)
+            hideView(holder.buttonDeleteItem, holder.textViewQuantityItem, holder.buttonAddItem, holder.buttonAddToCartItem)
+            notifyDataSetChanged()
+            listener.onAddProduct(product)
         }
 
-        holder.buttonDelete.setOnClickListener {
-            if (product.quantity > 1) {
-                product.quantity--
-                holder.quantity.text = product.quantity.toString()
-                notifyItemChanged(position)
-            } else {
-                onProductChangeListener.onProductRemoved(product)
-                onProductCountChangeListener.onProductCountChanged(list.size)
-                list.removeAt(position)
-                notifyItemRemoved(position)
-            }
+        holder.buttonDeleteItem.setOnClickListener {
+                SingletonCart.deleteProduct(product)
+                holder.textViewQuantityItem.text = SingletonCart.getQuantity(product.id).toString()
+                showView(holder.buttonDeleteItem, holder.textViewQuantityItem, holder.buttonAddItem, holder.buttonAddToCartItem)
+            notifyDataSetChanged()
+                //listener.onDeleteProduct(product)
         }
+        holder.buttonAddItem.setOnClickListener {
+            SingletonCart.addProduct(product)
+            holder.textViewQuantityItem.text = SingletonCart.getQuantity(product.id).toString()
+            notifyDataSetChanged()
 
+        }
 }
 
+    private fun showView(buttonDeleteItem: ImageButton, textViewQuantityItem: TextView, buttonAddItem: ImageButton, buttonAddToCartItem: Button) {
+        buttonDeleteItem.visibility = GONE
+        textViewQuantityItem.visibility = GONE
+        buttonAddItem.visibility = GONE
+        buttonAddToCartItem.visibility = VISIBLE
+    }
+
+    private fun hideView(buttonDeleteItem: ImageButton, textViewQuantityItem: TextView, buttonAddItem: ImageButton, buttonAddToCartItem: Button) {
+        buttonDeleteItem.visibility = VISIBLE
+        textViewQuantityItem.visibility = VISIBLE
+        buttonAddItem.visibility = VISIBLE
+        buttonAddToCartItem.visibility = GONE
+    }
+
+
     override fun getItemCount(): Int {
-        return list.size
+        return productList.size
     }
 
 }

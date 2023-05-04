@@ -8,8 +8,10 @@ data class Product(
     var name: String = "",
     var price: Double = 0.0,
     var image: String = "",
-    var quantity: Int = 1
+    var quantity: Int = 0,
+
 ) {
+
     companion object {
         fun fromJson(json: String): Product = Gson().fromJson(json, Product::class.java)
 

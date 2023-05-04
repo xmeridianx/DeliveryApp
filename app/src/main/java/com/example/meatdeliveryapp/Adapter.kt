@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
-    private lateinit var onProductChangeListener: OnProductChangeListener
+class Adapter(
+    private val list: MutableList<Product>,
+    private var onProductChangeListener: OnProductChangeListener
+) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     private lateinit var onProductCountChangeListener: OnProductCountChangeListener
 
 
@@ -44,9 +46,7 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
             .into(holder.image)
 
         holder.buttonAdd.setOnClickListener {
-            if (::onProductChangeListener.isInitialized) {
-                onProductChangeListener.onProductAdded(product)
-            }
+            onProductChangeListener.onProductAdded(product)
             if (::onProductCountChangeListener.isInitialized) {
                 onProductCountChangeListener.onProductCountChanged(list.size)
             }
@@ -61,11 +61,12 @@ class Adapter (private val list: MutableList<Product>) : RecyclerView.Adapter<Ad
                 holder.quantity.text = product.quantity.toString()
                 notifyItemChanged(position)
             } else {
-                onProductChangeListener.onProductRemoved(product)
+                SingletonCart.deleteProduct(product)
                 onProductCountChangeListener.onProductCountChanged(list.size)
                 list.removeAt(position)
                 notifyItemRemoved(position)
         }
+
     }
 
 }

@@ -7,14 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meatdeliveryapp.databinding.FragmentCartBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 const val PREFERENCES_NAME = "my_preferences"
 
@@ -26,7 +24,15 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     private lateinit var ref: DatabaseReference
     private lateinit var database: FirebaseDatabase
     private lateinit var sharedPreferences: SharedPreferences
+    val onProductChangeListener = object : OnProductChangeListener {
+        override fun onProductAdded(product: Product) {
+            adapter.notifyDataSetChanged()
+        }
 
+        override fun onProductRemoved(product: Product) {
+            adapter.notifyDataSetChanged()
+        }
+    }
     private var totalPrice = 0.0
     var cart = SingletonCart.getProductList()
     private val gson = Gson()
@@ -46,7 +52,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         SingletonCart.loadProductList(requireContext())
-        adapter = Adapter(SingletonCart.getProductList().toMutableList())
+        adapter = Adapter(SingletonCart.getProductList().toMutableList(), onProductChangeListener)
         //cart.addProducts(readProductsFromSharedPreferences())
 
         binding.toolbarCart
@@ -123,9 +129,10 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     override fun onProductRemoved(product: Product) {
         val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
         if (index != -1) {
-            SingletonCart.getProductList()[index].quantity--
-            if (SingletonCart.getProductList()[index].quantity == 0) {
+            if (SingletonCart.getProductList()[index].quantity == 1) {
                 SingletonCart.deleteProduct(product)
+            } else {
+                SingletonCart.getProductList()[index].quantity--
             }
             updateTotalPrice()
             adapter.notifyDataSetChanged()
