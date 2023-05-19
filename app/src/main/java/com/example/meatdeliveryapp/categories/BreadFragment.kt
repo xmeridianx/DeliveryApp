@@ -3,6 +3,7 @@ package com.example.meatdeliveryapp.categories
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,12 +28,12 @@ import com.google.firebase.storage.ktx.storage
 
 class BreadFragment : Fragment(), OnProductClickListener {
     private lateinit var binding: FragmentBreadBinding
-    private val storageRef = Firebase.storage.reference
     private lateinit var adapter: AdapterProduct
-    private lateinit var sharedPreferences: SharedPreferences
-    private val TAG = "BreadFragment"
-
+    private lateinit var adapter2: AdapterProduct
     private lateinit var productRefs: Array<DatabaseReference>
+    private lateinit var productRefs2: Array<DatabaseReference>
+    private lateinit var thread: Thread
+
 
 
     override fun onCreateView(
@@ -42,24 +43,14 @@ class BreadFragment : Fragment(), OnProductClickListener {
         binding = FragmentBreadBinding.inflate(layoutInflater)
         return binding.root
     }
-/*
-    private fun updateQuantity() {
-        val quantities = arrayOf(
-            SingletonCart.getQuantity(101).toString(),
-            SingletonCart.getQuantity(102).toString(),
-            SingletonCart.getQuantity(103).toString()
-        )
-        binding.textViewQuantity11.text = quantities[0]
-        binding.textViewQuantity12.text = quantities[1]
-        binding.textViewQuantity13.text = quantities[2]
-    }
 
- */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val database = FirebaseDatabase.getInstance()
         val categoryRef = database.getReference("Categories")
+        val handler = Handler()
+
         binding.toolbarBread.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -69,24 +60,119 @@ class BreadFragment : Fragment(), OnProductClickListener {
         productRefs = arrayOf(
             categoryRef.child("Хлеб").child("products").child("product101"),
             categoryRef.child("Хлеб").child("products").child("product102"),
-            categoryRef.child("Хлеб").child("products").child("product103")
+            categoryRef.child("Хлеб").child("products").child("product103"),
         )
-        val productList = mutableListOf<Product>()
+        thread = Thread {
+            val productList = loadData()
 
-        productRefs[0].get().addOnSuccessListener { dataSnapshot ->
-            val product101 = dataSnapshot.getValue<Product>()
-            productList.add(product101!!)
-            binding.textViewName11.text = "${product101?.name}"
-            binding.textViewPrice11.text = "${product101?.price}"
-
-            val productImage = "${product101?.image}"
             adapter = AdapterProduct(productList, this)
             val layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
             )
-            binding.recyclerBread.adapter = adapter
-            binding.recyclerBread.layoutManager = layoutManager
+            handler.post {
+                binding.recyclerBread.adapter = adapter
+                binding.recyclerBread.layoutManager = layoutManager
+
+            }
+        }
+        thread.start()
+
+
+
+        productRefs2 = arrayOf(
+            categoryRef.child("Овощи и фрукты").child("products").child("product301"),
+        )
+        val productList2 = mutableListOf<Product>()
+
+        adapter2 = AdapterProduct(productList2, this)
+        val layoutManager2 = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL, false
+        )
+
+
+        binding.recyclerBread2.adapter = adapter2
+        binding.recyclerBread2.layoutManager = layoutManager2
+
+        productRefs2[0].get().addOnSuccessListener { dataSnapshot ->
+            val product301 = dataSnapshot.getValue<Product>()
+            productList2.add(product301!!)
+            adapter2.notifyDataSetChanged()
+        }
+
+
+    }
+
+    private fun loadData(): MutableList<Product> {
+        val productList = mutableListOf<Product>()
+        productRefs[0].get().addOnSuccessListener { dataSnapshot ->
+            val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
+            //val productImage = "${product101?.image}"
+            adapter.notifyDataSetChanged()
+        }
+        productRefs[1].get().addOnSuccessListener { dataSnapshot ->
+            val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
+            adapter.notifyDataSetChanged()
+        }
+        productRefs[2].get().addOnSuccessListener { dataSnapshot ->
+            val product101 = dataSnapshot.getValue<Product>()
+            productList.add(product101!!)
+            adapter.notifyDataSetChanged()
+        }
+        return productList
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SingletonCart.saveProductList(requireContext())
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        thread.interrupt()
+    }
+
+    override fun onResume() {
+        SingletonCart.loadProductList(requireContext())
+        super.onResume()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = BreadFragment()
+    }
+
+    override fun onAddProduct(product: Product) {
+        SingletonCart.addProduct(
+            Product(
+                quantity = 1,
+                name = product.name,
+                id = product.id,
+                price = product.price,
+                image = product.image
+            )
+        )
+        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDeleteProduct(product: Product) {
+        SingletonCart.deleteProduct(product)
+        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
+    }
+}
+
+
+/*
+
+
+        //
+
+
             /*
             loadImageWithGlide(productImage, binding.imageView101)
 
@@ -105,7 +191,8 @@ class BreadFragment : Fragment(), OnProductClickListener {
 
              */
 
-        }
+
+        /*
         productRefs[1].get().addOnSuccessListener { dataSnapshot ->
             val product101 = dataSnapshot.getValue<Product>()
             productList.add(product101!!)
@@ -137,6 +224,8 @@ class BreadFragment : Fragment(), OnProductClickListener {
             binding.recyclerBread.adapter = adapter
             binding.recyclerBread.layoutManager = layoutManager
         }
+
+         */
             /*
         loadImageWithGlide(productImage, binding.imageView101)
 
@@ -154,53 +243,6 @@ class BreadFragment : Fragment(), OnProductClickListener {
             }
 
          */
-
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        SingletonCart.saveProductList(requireContext())
-
-    }
-
-    override fun onResume() {
-        SingletonCart.loadProductList(requireContext())
-        super.onResume()
-        //updateQuantity()
-        //binding.buttonDelete11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
-        //binding.textViewQuantity11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
-        //binding.buttonAdd11.visibility = if (SingletonCart.getQuantity(101) > 0) View.VISIBLE else View.GONE
-
-
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = BreadFragment()
-    }
-
-    override fun onAddProduct(product: Product) {
-        SingletonCart.addProduct(
-            Product(
-                quantity = 1,
-                name = product.name,
-                id = product.id,
-                price = product.price,
-                image = product.image
-            )
-        )
-        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDeleteProduct(product: Product) {
-        SingletonCart.deleteProduct(product)
-        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
-    }
-}
-
-
-/*
         product1Ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val product = snapshot.getValue(Product::class.java)
@@ -463,63 +505,63 @@ product1Ref.addValueEventListener(object : ValueEventListener {
 
             }
  */
-            /*
-            binding.textViewName13.text = "${product?.name}"
-        binding.textViewPrice13.text = "${product?.price}"
-        Glide.with(this@BreadFragment)
-            .load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895")
-            .error(R.drawable.ic_baseline_error_24)
-            .into(binding.imageView11)
+/*
+binding.textViewName13.text = "${product?.name}"
+binding.textViewPrice13.text = "${product?.price}"
+Glide.with(this@BreadFragment)
+.load("https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895")
+.error(R.drawable.ic_baseline_error_24)
+.into(binding.imageView11)
 
-        binding.buttonAddToCart13.setOnClickListener {
-            val list = SingletonCart
-            list.addProduct (
-                Product(
-                    quantity = 1,
-                    id = 3,
-                    name = "${product?.name}",
-                    price = product?.price!!.toDouble(),
-                    imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"
-                )
-            )
-            Log.d(TAG, "Product added to cart: $product")
+binding.buttonAddToCart13.setOnClickListener {
+val list = SingletonCart
+list.addProduct (
+    Product(
+        quantity = 1,
+        id = 3,
+        name = "${product?.name}",
+        price = product?.price!!.toDouble(),
+        imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"
+    )
+)
+Log.d(TAG, "Product added to cart: $product")
 
-            updateQuantity()
-            binding.buttonDelete13.visibility = VISIBLE
-            binding.textViewQuantity13.visibility = VISIBLE
-            binding.buttonAdd13.visibility = VISIBLE
-            binding.buttonAddToCart13.visibility = GONE
-            Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+updateQuantity()
+binding.buttonDelete13.visibility = VISIBLE
+binding.textViewQuantity13.visibility = VISIBLE
+binding.buttonAdd13.visibility = VISIBLE
+binding.buttonAddToCart13.visibility = GONE
+Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
 
-        }
+}
 
 
-        binding.buttonAdd13.setOnClickListener {
+binding.buttonAdd13.setOnClickListener {
 
-            val list = SingletonCart
-            list.addProduct (
-                Product(
-                    quantity = 1,
-                    id = 3,
-                    name = "${product?.name}",
-                    price = product?.price!!.toDouble(),
-                    imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"
-                )
-            )
-            Log.d(TAG, "Product added to cart: $product")
+val list = SingletonCart
+list.addProduct (
+    Product(
+        quantity = 1,
+        id = 3,
+        name = "${product?.name}",
+        price = product?.price!!.toDouble(),
+        imageUrl = "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"
+    )
+)
+Log.d(TAG, "Product added to cart: $product")
 
-            updateQuantity()
-            binding.textViewQuantity11.visibility = VISIBLE
-            Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
-        }
+updateQuantity()
+binding.textViewQuantity11.visibility = VISIBLE
+Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+}
 
-        binding.buttonDelete13.setOnClickListener {
+binding.buttonDelete13.setOnClickListener {
 
-            SingletonCart.deleteProduct(product!!)
+SingletonCart.deleteProduct(product!!)
 
-            updateQuantity()
-            Toast.makeText(activity, "Уделено из корзины", Toast.LENGTH_SHORT).show()
+updateQuantity()
+Toast.makeText(activity, "Уделено из корзины", Toast.LENGTH_SHORT).show()
 
-        }
+}
 
-             */
+ */

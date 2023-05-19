@@ -14,7 +14,7 @@
         android:gravity="center"
         android:id="@+id/toolbarBread"
         style="@style/ToolbarBread"
-        app:title="@string/milk_products_and_eggs"
+        app:title="Хлебобулочные изделия"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -37,313 +37,10 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:text="@string/milk"
+                android:text="Хлеб"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/white"
-                    android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView101"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/malina_protert" />
-
-                        <TextView
-                            android:id="@+id/textViewName11"
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/name"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/textViewPrice11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:text="@string/price"
-                            android:textColor="@color/red"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/buttonAddToCart11"
-                                android:visibility="visible"
-                                android:text="@string/add_to_cart"
-                                android:textSize="10sp"
-                                android:backgroundTint="@color/gray"
-                                android:textColor="@color/black"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1" />
-
-                            <ImageButton
-
-                                android:visibility="gone"
-                                android:id="@+id/buttonAdd11"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/add_button" />
-                            <TextView
-                                android:id="@+id/textViewQuantity11"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:text="1"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:textStyle="normal" />
-                            <ImageButton
-                                android:visibility="gone"
-                                android:id="@+id/buttonDelete11"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/delete_button" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/white"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView102"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/malina_protert" />
-
-                        <TextView
-                            android:id="@+id/textViewName12"
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/name"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/textViewPrice12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:text="@string/price"
-                            android:textColor="@color/red"
-                            android:textSize="16sp"
-                            android:textStyle="normal" />
-
-                        <LinearLayout
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <Button
-                                android:id="@+id/buttonAddToCart12"
-                                android:visibility="visible"
-                                android:text="@string/add_to_cart"
-                                android:textSize="10sp"
-                                android:backgroundTint="@color/gray"
-                                android:textColor="@color/black"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1" />
-
-                            <ImageButton
-
-                                android:visibility="gone"
-                                android:id="@+id/buttonAdd12"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/add_button" />
-                            <TextView
-                                android:id="@+id/textViewQuantity12"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:text="1"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:textStyle="normal" />
-                            <ImageButton
-                                android:visibility="gone"
-                                android:id="@+id/buttonDelete12"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/delete_button" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/white"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView103"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/malina_protert" />
-
-                        <TextView
-                            android:id="@+id/textViewName13"
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/name"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/textViewPrice13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:text="@string/price"
-                            android:textColor="@color/red"
-                            android:textSize="16sp"
-                            android:textStyle="normal" />
-
-                        <LinearLayout
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <Button
-                                android:id="@+id/buttonAddToCart13"
-                                android:visibility="visible"
-                                android:text="@string/add_to_cart"
-                                android:textSize="10sp"
-                                android:backgroundTint="@color/gray"
-                                android:textColor="@color/black"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1" />
-
-                            <ImageButton
-
-                                android:visibility="gone"
-                                android:id="@+id/buttonAdd13"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/add_button" />
-                            <TextView
-                                android:id="@+id/textViewQuantity13"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:visibility="gone"
-                                android:text="1"
-                                android:textColor="@color/black"
-                                android:textSize="16sp"
-                                android:textStyle="normal" />
-                            <ImageButton
-                                android:visibility="gone"
-                                android:id="@+id/buttonDelete13"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:backgroundTint="@color/white"
-                                android:src="@drawable/delete_button" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-
-
-
-            <TextView
-                android:layout_marginStart="10dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:text="@string/eggs"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerBread"
@@ -357,13 +54,36 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:text="Кефир, сметана, творог"
+                android:text="Выпечка, пироги"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
 
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerBread2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:text="Хлебцы, крекеры, сушки"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerBread3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
 
 

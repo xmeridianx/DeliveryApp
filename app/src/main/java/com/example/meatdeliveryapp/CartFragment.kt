@@ -134,9 +134,9 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
             } else {
                 SingletonCart.getProductList()[index].quantity--
             }
-            updateTotalPrice()
-            adapter.notifyDataSetChanged()
         }
+        updateTotalPrice()
+        adapter.notifyDataSetChanged()
     }
 
     private fun calculateTotalPrice(cart: MutableList<Product>): Double {

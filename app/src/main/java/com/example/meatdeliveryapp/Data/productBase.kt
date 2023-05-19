@@ -88,6 +88,52 @@ class productBase {
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fborodin.jpg?alt=media&token=aab7e9d2-e8a8-4bec-af2f-ee8db6155b59"))
         breadRef.child("products").child("product103").setValue(ProductTest(103,"хлеб 3", 33,
         "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbulgarskiy.jpg?alt=media&token=45e491c3-3c65-4476-bbdd-9c2357345895"))
+
+        vegetablesRef.child("products").child("product201").setValue(ProductTest(201,"Картофель", 31,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product202").setValue(ProductTest(202,"Морковь", 32,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product203").setValue(ProductTest(203,"Лук репчатый", 33,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product204").setValue(ProductTest(204,"Помидоры", 34,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product205").setValue(ProductTest(205,"Огурцы", 35,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product206").setValue(ProductTest(206,"Свекла", 36,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product207").setValue(ProductTest(207,"Редис", 37,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product208").setValue(ProductTest(208,"Капуста", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product209").setValue(ProductTest(209,"Чеснок", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+
+
+        vegetablesRef.child("products").child("product210").setValue(ProductTest(210,"Бананы", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product211").setValue(ProductTest(211,"Яблоки Голден", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product212").setValue(ProductTest(212,"Яблоки красные", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product213").setValue(ProductTest(213,"Апельсины", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product214").setValue(ProductTest(214,"Лимоны", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product215").setValue(ProductTest(215,"Мандарины", 40,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+
+
+        vegetablesRef.child("products").child("product220").setValue(ProductTest(220,"Укроп", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product221").setValue(ProductTest(221,"Пертушка", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product222").setValue(ProductTest(222,"Салат", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+
+        vegetablesRef.child("products").child("product230").setValue(ProductTest(230,"Шапминьоны", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
+        vegetablesRef.child("products").child("product301").setValue(ProductTest(301,"Шапминьоны", 38,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"))
 /*
         meatRef.child("products").child("product201").setValue(ProductTest("мясо 1", 30))
         meatRef.child("products").child("product202").setValue(ProductTest("Mясо 2", 40))
