@@ -8,15 +8,27 @@ import android.widget.Toolbar
 import com.example.meatdeliveryapp.categories.BreadFragment
 import com.example.meatdeliveryapp.categories.MeatFragment
 import com.example.meatdeliveryapp.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()).commit()
-        binding.bottomAppBar.setOnItemSelectedListener { menuItem -> itemSelected(menuItem)}
+        if(isUserLoggedIn()){
+            supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment())
+                .commit()
+        }else {
+            supportFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment()).commit()
+        }
+        binding.bottomAppBar.setOnItemSelectedListener { menuItem -> itemSelected(menuItem) }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val currentUser = auth.currentUser
+        return currentUser != null
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

@@ -29,6 +29,7 @@ class Registration : AppCompatActivity() {
             val email = binding.editTextRegistrationLogin
             val password = binding.editTextRegistrationPassword
             val name = binding.editTextRegistrationName
+            val phoneNumber = binding.editTextRegistrationPhone
             val city = binding.editTextRegistrationCity
             val street = binding.editTextRegistrationStreet
             val house = binding.editTextRegistrationHouse
@@ -52,7 +53,7 @@ class Registration : AppCompatActivity() {
                         ref.child("Users").child(auth.getCurrentUser()!!.getUid()).child("имя")
                             .setValue(name.getText().toString())
                         ref.child("Users").child(auth.getCurrentUser()!!.getUid()).child("Телефон")
-                            .setValue(name.getText().toString())
+                            .setValue(phoneNumber.getText().toString())
                         ref.child("Users").child(auth.getCurrentUser()!!.getUid()).child("город")
                             .setValue(city.getText().toString())
                         ref.child("Users").child(auth.getCurrentUser()!!.getUid()).child("улица")

@@ -30,8 +30,10 @@ class BreadFragment : Fragment(), OnProductClickListener {
     private lateinit var binding: FragmentBreadBinding
     private lateinit var adapter: AdapterProduct
     private lateinit var adapter2: AdapterProduct
+    private lateinit var adapter3: AdapterProduct
     private lateinit var productRefs: Array<DatabaseReference>
     private lateinit var productRefs2: Array<DatabaseReference>
+    private lateinit var productRefs3: Array<DatabaseReference>
     private lateinit var thread: Thread
 
 
@@ -61,6 +63,8 @@ class BreadFragment : Fragment(), OnProductClickListener {
             categoryRef.child("Хлеб").child("products").child("product101"),
             categoryRef.child("Хлеб").child("products").child("product102"),
             categoryRef.child("Хлеб").child("products").child("product103"),
+            categoryRef.child("Хлеб").child("products").child("product104"),
+            categoryRef.child("Хлеб").child("products").child("product105"),
         )
         thread = Thread {
             val productList = loadData()
@@ -81,7 +85,9 @@ class BreadFragment : Fragment(), OnProductClickListener {
 
 
         productRefs2 = arrayOf(
-            categoryRef.child("Овощи и фрукты").child("products").child("product301"),
+            categoryRef.child("Хлеб").child("products").child("product111"),
+            categoryRef.child("Хлеб").child("products").child("product112"),
+            categoryRef.child("Хлеб").child("products").child("product113"),
         )
         val productList2 = mutableListOf<Product>()
 
@@ -96,34 +102,151 @@ class BreadFragment : Fragment(), OnProductClickListener {
         binding.recyclerBread2.layoutManager = layoutManager2
 
         productRefs2[0].get().addOnSuccessListener { dataSnapshot ->
-            val product301 = dataSnapshot.getValue<Product>()
-            productList2.add(product301!!)
-            adapter2.notifyDataSetChanged()
+            val product111 = dataSnapshot.getValue<Product>()
+            product111?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fsdoba.jpg?alt=media&token=92ca2c18-92f9-4695-a764-61f5360ba7e8"
+                productList2.add(it)
+                adapter2.notifyDataSetChanged()
+            }
         }
+        productRefs2[1].get().addOnSuccessListener { dataSnapshot ->
+            val product112 = dataSnapshot.getValue<Product>()
+            product112?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fsochni2.jpg?alt=media&token=d6c4a8a4-5454-433d-9492-d43fce00f9a1"
+                productList2.add(it)
+                adapter2.notifyDataSetChanged()
+            }
+        }
+        productRefs2[2].get().addOnSuccessListener { dataSnapshot ->
+            val product113 = dataSnapshot.getValue<Product>()
+            product113?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04%20(6).jpg?alt=media&token=acaa4be8-a623-48fb-b2b6-fce6f1185a0f"
+                productList2.add(it)
+                adapter2.notifyDataSetChanged()
+            }
 
 
     }
+
+    productRefs3 = arrayOf(
+        categoryRef.child("Хлеб").child("products").child("product121"),
+        categoryRef.child("Хлеб").child("products").child("product122"),
+        categoryRef.child("Хлеб").child("products").child("product123"),
+        categoryRef.child("Хлеб").child("products").child("product124"),
+        categoryRef.child("Хлеб").child("products").child("product125"),
+    )
+    val productList3 = mutableListOf<Product>()
+
+    adapter3 = AdapterProduct(productList3, this)
+    val layoutManager3 = LinearLayoutManager(
+        requireContext(),
+        LinearLayoutManager.HORIZONTAL, false
+    )
+
+
+    binding.recyclerBread3.adapter = adapter3
+    binding.recyclerBread3.layoutManager = layoutManager3
+
+    productRefs3[0].get().addOnSuccessListener { dataSnapshot ->
+        val product121 = dataSnapshot.getValue<Product>()
+        product121?.let {
+            it.image =
+                "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04%20(5).jpg?alt=media&token=e940079d-7e26-4f0e-ada2-28063986e450"
+            productList3.add(it)
+            adapter3.notifyDataSetChanged()
+        }
+    }
+    productRefs3[1].get().addOnSuccessListener { dataSnapshot ->
+        val product122 = dataSnapshot.getValue<Product>()
+        product122?.let {
+            it.image =
+                "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04%20(4).jpg?alt=media&token=7d43535f-cdab-457b-a4b8-479527fa0a58"
+            productList3.add(it)
+            adapter3.notifyDataSetChanged()
+        }
+    }
+    productRefs3[2].get().addOnSuccessListener { dataSnapshot ->
+        val product123 = dataSnapshot.getValue<Product>()
+        product123?.let {
+            it.image =
+                "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04%20(3).jpg?alt=media&token=12101d29-ce58-48e3-86a9-09307307425e"
+            productList3.add(it)
+            adapter3.notifyDataSetChanged()
+        }
+    }
+        productRefs3[3].get().addOnSuccessListener { dataSnapshot ->
+            val product124 = dataSnapshot.getValue<Product>()
+            product124?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04%20(2).jpg?alt=media&token=fdfcb4e7-78e8-4583-9fa6-9b2884f3ca0e"
+                productList3.add(it)
+                adapter3.notifyDataSetChanged()
+            }
+        }
+        productRefs3[4].get().addOnSuccessListener { dataSnapshot ->
+            val product125 = dataSnapshot.getValue<Product>()
+            product125?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-04.jpg?alt=media&token=84b70cd4-1dc5-4c32-b46e-a04257e87a49"
+                productList3.add(it)
+                adapter3.notifyDataSetChanged()
+            }
+        }
+}
 
     private fun loadData(): MutableList<Product> {
         val productList = mutableListOf<Product>()
         productRefs[0].get().addOnSuccessListener { dataSnapshot ->
             val product101 = dataSnapshot.getValue<Product>()
-            productList.add(product101!!)
-            //val productImage = "${product101?.image}"
-            adapter.notifyDataSetChanged()
+            product101?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fhleb1.jpg?alt=media&token=869da003-b851-4156-9dcb-d26b3b4309ab"
+                productList.add(it)
+                adapter.notifyDataSetChanged()
+            }
         }
         productRefs[1].get().addOnSuccessListener { dataSnapshot ->
-            val product101 = dataSnapshot.getValue<Product>()
-            productList.add(product101!!)
-            adapter.notifyDataSetChanged()
+            val product102 = dataSnapshot.getValue<Product>()
+            product102?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-03%20(2).jpg?alt=media&token=4a63c4fa-8f0d-47f6-aaef-690a29cebc75"
+                productList.add(it)
+                adapter.notifyDataSetChanged()
+            }
         }
         productRefs[2].get().addOnSuccessListener { dataSnapshot ->
-            val product101 = dataSnapshot.getValue<Product>()
-            productList.add(product101!!)
-            adapter.notifyDataSetChanged()
+            val product103 = dataSnapshot.getValue<Product>()
+            product103?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fphoto_2023-05-23_17-09-03%20(3).jpg?alt=media&token=7d729940-22e1-41ba-b829-51fc27d05ff8"
+                productList.add(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
+        productRefs[3].get().addOnSuccessListener { dataSnapshot ->
+            val product104 = dataSnapshot.getValue<Product>()
+            product104?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fborodin.jpg?alt=media&token=aab7e9d2-e8a8-4bec-af2f-ee8db6155b59"
+                productList.add(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
+        productRefs[4].get().addOnSuccessListener { dataSnapshot ->
+            val product105 = dataSnapshot.getValue<Product>()
+            product105?.let {
+                it.image =
+                    "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fbread%2Fbaton.jpg?alt=media&token=9aaa311b-554d-475f-9144-34a0b9e80315"
+                productList.add(it)
+                adapter.notifyDataSetChanged()
+            }
         }
         return productList
     }
+
 
 
     override fun onPause() {

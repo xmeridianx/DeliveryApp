@@ -23,6 +23,14 @@ class AdapterProduct(private val productList: List<Product>, private val listene
         val buttonDeleteItem: ImageButton = binding.buttonDeleteItem
         val buttonAddItem: ImageButton = binding.buttonAddItem
         val textViewQuantityItem: TextView =  binding.textViewQuantityItem
+        val imageViewItem: ImageView = binding.imageViewItem
+
+        fun setImageForProduct(imageUrl: String) {
+            Glide.with(imageViewItem.context)
+                .load(imageUrl)
+                .error(R.drawable.ic_baseline_error_24)
+                .into(binding.imageViewItem)
+        }
 
         fun bind(product: Product) {
             binding.textViewNameItem.text = product.name
@@ -35,6 +43,7 @@ class AdapterProduct(private val productList: List<Product>, private val listene
                 hideView(buttonDeleteItem, textViewQuantityItem, buttonAddItem, buttonAddToCartItem)
             }
         }
+
 
         private fun showView(buttonDeleteItem: ImageButton, textViewQuantityItem: TextView, buttonAddItem: ImageButton, buttonAddToCartItem: Button) {
             buttonDeleteItem.visibility = GONE
@@ -61,6 +70,7 @@ class AdapterProduct(private val productList: List<Product>, private val listene
         val product = productList[position]
         holder.bind(product)
 
+        holder.setImageForProduct(product.image)
         holder.buttonAddToCartItem.setOnClickListener {
             SingletonCart.addProduct(product)
             hideView(holder.buttonDeleteItem, holder.textViewQuantityItem, holder.buttonAddItem, holder.buttonAddToCartItem)
@@ -101,5 +111,4 @@ class AdapterProduct(private val productList: List<Product>, private val listene
     override fun getItemCount(): Int {
         return productList.size
     }
-
 }

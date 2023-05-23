@@ -11,7 +11,9 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.meatdeliveryapp.databinding.FragmentCartBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 
 const val PREFERENCES_NAME = "my_preferences"
@@ -22,8 +24,9 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     private lateinit var adapter: Adapter
     private lateinit var auth: FirebaseAuth
     private lateinit var ref: DatabaseReference
-    private lateinit var database: FirebaseDatabase
     private lateinit var sharedPreferences: SharedPreferences
+    private var totalPrice = 0.0
+
     val onProductChangeListener = object : OnProductChangeListener {
         override fun onProductAdded(product: Product) {
             adapter.notifyDataSetChanged()
@@ -33,9 +36,8 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
             adapter.notifyDataSetChanged()
         }
     }
-    private var totalPrice = 0.0
+
     var cart = SingletonCart.getProductList()
-    private val gson = Gson()
     private var cartSize = 0
 
     override fun onCreateView(
@@ -53,32 +55,31 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         super.onViewCreated(view, savedInstanceState)
         SingletonCart.loadProductList(requireContext())
         adapter = Adapter(SingletonCart.getProductList().toMutableList(), onProductChangeListener)
-        //cart.addProducts(readProductsFromSharedPreferences())
 
-        binding.toolbarCart
-        binding.cartRecycler.layoutManager = LinearLayoutManager(context)
-        binding.cartRecycler.adapter = adapter
-        //adapter.notifyDataSetChanged()
 
         binding.toolbarCart.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
         binding.toolbarCart.setOnMenuItemClickListener { menuItem ->
             if (menuItem.itemId == R.id.menu_delete){
-                SingletonCart.clear()
-                SingletonCart.saveProductList(requireContext())
-                adapter.notifyDataSetChanged()
+                    SingletonCart.clear()
+                    SingletonCart.saveProductList(requireContext())
+                    adapter.notifyDataSetChanged()
+                    updateTotalPrice()
                 true
             }else{
                 false
             }
+
         }
-        //binding.totalPriceTextView.text = "Итого: ${totalPrice}"
-        //adapter.setOnProductChangeListener(this)
-        adapter.setOnProductCountChangeListener(this)
+
+        binding.cartRecycler.layoutManager = LinearLayoutManager(context)
+        binding.cartRecycler.adapter = adapter
+
+        //adapter.setOnProductCountChangeListener(this)
+        adapter.notifyDataSetChanged()
         updateTotalPrice()
 
-        adapter.notifyDataSetChanged()
         auth = FirebaseAuth.getInstance()
         ref = FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
             .getReference("Users").child(auth.currentUser!!.uid)
@@ -86,9 +87,9 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
         binding.orderCartButton.setOnClickListener {
             ref.child(auth.currentUser!!.uid).child("products")
-                .setValue(SingletonCart.getProductList().toString())
-            ref =
-                FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
+                .setValue(SingletonCart.getProductList().toString() + "общая стоимость: " + totalPrice.toString() + " + 190р доставка")
+            adapter.notifyDataSetChanged()
+            ref = FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
                     .getReference("Users").child(auth.currentUser!!.uid)
 
             setDatabaseListener()
@@ -109,17 +110,72 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         }
 
         updateTotalPrice()
+        adapter.notifyDataSetChanged()
+
+        val adressCity = FirebaseDatabase.getInstance().reference.child("Users").child(
+            Firebase.auth.currentUser?.uid ?: ""
+        ).child("город")
+        adressCity.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val city = snapshot.value as? String ?: ""
+
+                val adressStreet = FirebaseDatabase.getInstance().reference.child("Users").child(
+                    Firebase.auth.currentUser?.uid ?: ""
+                ).child("улица")
+                adressStreet.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val street = snapshot.value as? String ?: ""
+
+                        val adressHouse = FirebaseDatabase.getInstance().reference.child("Users").child(
+                            Firebase.auth.currentUser?.uid ?: ""
+                        ).child("дом")
+                        adressHouse.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val house = snapshot.value as? String ?: ""
+
+                                val adressApartment = FirebaseDatabase.getInstance().reference.child("Users").child(
+                                    Firebase.auth.currentUser?.uid ?: ""
+                                ).child("квартира")
+                                adressApartment.addValueEventListener(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        val apartment = snapshot.value as? String ?: ""
+
+                                        binding.address.text = "Ваш адрес: $city, ул: $street, дом: $house, квартира: $apartment"
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+
+                                    }
+                                })
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+
+                            }
+                        })
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+                })
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
 
     override fun onProductAdded(product: Product) {
-        val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
-        if (index != -1) {
-            SingletonCart.getProductList()[index].quantity++
-        } else {
-            SingletonCart.addProduct(product)
-        }
-        updateTotalPrice()
-        adapter.notifyDataSetChanged()
+            val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
+            if (index != -1) {
+                SingletonCart.getProductList()[index].quantity++
+            } else {
+                SingletonCart.addProduct(product)
+            }
+            calculateTotalPrice(cart)
+            adapter.notifyDataSetChanged()
     }
     override fun onResume() {
         super.onResume()
@@ -127,16 +183,17 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     }
 
     override fun onProductRemoved(product: Product) {
-        val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
-        if (index != -1) {
-            if (SingletonCart.getProductList()[index].quantity == 1) {
-                SingletonCart.deleteProduct(product)
-            } else {
-                SingletonCart.getProductList()[index].quantity--
-            }
+
+            val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
+            if (index != -1) {
+                if (SingletonCart.getProductList()[index].quantity == 1) {
+                    SingletonCart.deleteProduct(product)
+                } else {
+                    SingletonCart.getProductList()[index].quantity--
+                }
+            calculateTotalPrice(cart)
+            adapter.notifyDataSetChanged()
         }
-        updateTotalPrice()
-        adapter.notifyDataSetChanged()
     }
 
     private fun calculateTotalPrice(cart: MutableList<Product>): Double {
@@ -161,14 +218,18 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val products = snapshot.value as? MutableList<String>
                     if (products != null) {
-                        SingletonCart.getProductList().addAll(products.map { json ->
-                            Gson().fromJson(
-                                json,
-                                Product::class.java
-                            )
-                        }) as MutableList<Product>
-                        adapter.notifyDataSetChanged()
-                        updateTotalPrice()
+                        activity?.runOnUiThread {
+                            SingletonCart.getProductList().addAll(products.map { json ->
+                                Gson().fromJson(
+                                    json,
+                                    Product::class.java
+                                )
+                            }) as MutableList<Product>
+                            adapter.notifyDataSetChanged()
+                            SingletonCart.clear()
+                            updateTotalPrice()
+                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
 
