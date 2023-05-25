@@ -41,7 +41,7 @@ class Adapter(
         holder.quantity.text = product.quantity.toString()
 
         Glide.with(holder.itemView.context)
-            .load(product.image)
+            .load(product.imageUrl)
             .error(R.drawable.ic_baseline_error_24)
             .into(holder.image)
 
@@ -62,9 +62,9 @@ class Adapter(
                 notifyItemChanged(position)
             } else {
                 SingletonCart.deleteProduct(product)
-                onProductCountChangeListener.onProductCountChanged(list.size)
                 list.removeAt(position)
                 notifyItemRemoved(position)
+                onProductCountChangeListener.onProductCountChanged(list.size)
         }
 
     }

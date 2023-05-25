@@ -70,7 +70,7 @@ class AdapterProduct(private val productList: List<Product>, private val listene
         val product = productList[position]
         holder.bind(product)
 
-        holder.setImageForProduct(product.image)
+        holder.setImageForProduct(product.imageUrl)
         holder.buttonAddToCartItem.setOnClickListener {
             SingletonCart.addProduct(product)
             hideView(holder.buttonDeleteItem, holder.textViewQuantityItem, holder.buttonAddItem, holder.buttonAddToCartItem)

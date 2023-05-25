@@ -55,7 +55,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         super.onViewCreated(view, savedInstanceState)
         SingletonCart.loadProductList(requireContext())
         adapter = Adapter(SingletonCart.getProductList().toMutableList(), onProductChangeListener)
-
+        adapter.setOnProductCountChangeListener(this)
 
         binding.toolbarCart.setNavigationOnClickListener {
             requireActivity().onBackPressed()
@@ -179,6 +179,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     }
     override fun onResume() {
         super.onResume()
+        adapter.notifyDataSetChanged()
         updateTotalPrice()
     }
 
@@ -251,8 +252,10 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
     }
 
+
     override fun onPause() {
         super.onPause()
+        adapter.notifyDataSetChanged()
         updateTotalPrice()
         SingletonCart.saveProductList(requireContext())
     }

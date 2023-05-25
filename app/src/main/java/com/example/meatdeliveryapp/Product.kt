@@ -7,7 +7,7 @@ data class Product(
     var id: Int = 101,
     var name: String = "",
     var price: Double = 0.0,
-    var image: String = "",
+    var imageUrl: String = "",
     var quantity: Int = 0,
 
 ) {
