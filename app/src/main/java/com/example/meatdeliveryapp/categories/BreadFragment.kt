@@ -1,6 +1,5 @@
 package com.example.meatdeliveryapp.categories
 
-
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -22,9 +21,10 @@ import java.util.concurrent.ExecutionException
 
 
 class BreadFragment : Fragment(), OnProductClickListener {
+
     private lateinit var binding: FragmentBreadBinding
     private lateinit var adapters: Array<AdapterProduct>
-    private lateinit var productRefs: Array<Array<DatabaseReference>>
+    private lateinit var productRefs: Array<DatabaseReference>
     private lateinit var thread: Array<Thread>
     private lateinit var database: FirebaseDatabase
     private val handler = Handler()
@@ -33,7 +33,7 @@ class BreadFragment : Fragment(), OnProductClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBreadBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -48,25 +48,17 @@ class BreadFragment : Fragment(), OnProductClickListener {
         }
         SingletonCart.loadProductList(requireContext())
         adapters = Array(3) { AdapterProduct(mutableListOf(), this) }
-        productRefs = Array(3) { arrayOf() }
+        productRefs = arrayOf(
+            categoryRef.child("Bread_products").child("Bread"),
+            categoryRef.child("Bread_products").child("Bakery") ,
+            categoryRef.child("Bread_products").child("Crackers"))
+
         thread = Array(3) { Thread() }
 
-
-        val categoryNames = arrayOf("Bread_products", "Bakery_products", "Crackers_products")
-
-
-        productRefs[0] = arrayOf(
-            categoryRef.child("Bread_products").child("Bread").child("product101"),
-            categoryRef.child("Bread_products").child("Bread").child("product102"),
-            categoryRef.child("Bread_products").child("Bread").child("product103"),
-            categoryRef.child("Bread_products").child("Bread").child("product104"),
-            categoryRef.child("Bread_products").child("Bread").child("product105"),
-        )
-
+        //val categoryNames = arrayOf("Bread_products", "Bakery_products", "Crackers_products")
 
         thread[0] = Thread {
             val productList = loadData(productRefs[0])
-
             adapters[0] = AdapterProduct(productList, this)
             val layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -80,14 +72,8 @@ class BreadFragment : Fragment(), OnProductClickListener {
         }
         thread[0].start()
 
-        productRefs[1] = arrayOf(
-            categoryRef.child("Bread_products").child("Bakery").child("product111"),
-            categoryRef.child("Bread_products").child("Bakery").child("product112"),
-            categoryRef.child("Bread_products").child("Bakery").child("product113"),
-        )
         thread[1] = Thread {
             val productList2 = loadData(productRefs[1])
-
             adapters[1] = AdapterProduct(productList2, this)
             val layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -101,13 +87,7 @@ class BreadFragment : Fragment(), OnProductClickListener {
         }
         thread[1].start()
 
-        productRefs[2] = arrayOf(
-            categoryRef.child("Bread_products").child("Crackers").child("product121"),
-            categoryRef.child("Bread_products").child("Crackers").child("product122"),
-            categoryRef.child("Bread_products").child("Crackers").child("product123"),
-            categoryRef.child("Bread_products").child("Crackers").child("product124"),
-            categoryRef.child("Bread_products").child("Crackers").child("product125"),
-        )
+
         thread[2] = Thread {
             val productList3 = loadData(productRefs[2])
 
@@ -125,15 +105,14 @@ class BreadFragment : Fragment(), OnProductClickListener {
         thread[2].start()
     }
 
-    private fun loadData(productRefs: Array<DatabaseReference>): MutableList<Product> {
+    private fun loadData(productRefs: DatabaseReference): MutableList<Product> {
         val productList = mutableListOf<Product>()
 
         try {
-           productRefs.forEach { productRef ->
-               val product = Tasks.await(productRef.get())
-               productList.add(product.getValue<Product>()!!)
-           }
+               val products = Tasks.await(productRefs.get())
+                val p = ArrayList<Product>(products.getValue<Map<String, Product>>()!!.values)
 
+              productList.addAll(p)
         } catch (e: ExecutionException) {
             e.printStackTrace()
         } catch (e: InterruptedException) {
@@ -183,4 +162,3 @@ class BreadFragment : Fragment(), OnProductClickListener {
         Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
     }
 }
-
