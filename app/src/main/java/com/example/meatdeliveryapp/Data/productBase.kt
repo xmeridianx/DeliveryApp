@@ -145,7 +145,7 @@ class productBase {
         //Для завтрака
         groceryRef.child("Breakfast").child("product321").setValue(ProductTest(321,"Селяночка Геркулес 500г", 70,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fgrocery%2Fgercules_selyanochka.jpg?alt=media&token=f8805cca-9979-4548-a337-e551b8bdf023"))
-        groceryRef.child("Breakfast").child("product322").setValue(ProductTest(321,"Селяночка Овсяные хлопья 350г", 60,
+        groceryRef.child("Breakfast").child("product322").setValue(ProductTest(322,"Селяночка Овсяные хлопья 350г", 60,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fgrocery%2Fovsyanka_selyanochka.jpg?alt=media&token=d42575be-a82f-4103-92f2-2cc637b06b68"))
 
         //Быстрое приготовление
@@ -159,6 +159,45 @@ class productBase {
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fgrocery%2Fdoshirak_lapsha.jpg?alt=media&token=2665709e-5f0b-4478-a824-331e98b9a163"))
         groceryRef.child("Fast").child("product335").setValue(ProductTest(335,"Харчо суп", 30,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fgrocery%2Fharcho.jpg?alt=media&token=cbd483f8-ee49-4215-8666-e1c8428d271e"))
+
+        //Молочные продукты
+        //Молоко,кефир
+        milkRef.child("Milk").child("product401").setValue(ProductTest(401,"Молоко Вкусняев", 70,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fmoloko2.jpg?alt=media&token=be60473b-e1cb-4228-a433-ba2ff599aa35"))
+        milkRef.child("Milk").child("product402").setValue(ProductTest(402,"Молоко Домик", 70,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fmoloko3.jpg?alt=media&token=4441977e-dbdd-475c-baf4-4ec868755232"))
+        milkRef.child("Milk").child("product403").setValue(ProductTest(403,"Молоко Красная цена", 70,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fmoloko4.jpg?alt=media&token=b85c3b52-4d72-435f-8411-202b6da55ecb"))
+        milkRef.child("Milk").child("product404").setValue(ProductTest(404,"Кефир Очень важная", 70,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fkefir1.jpg?alt=media&token=bed3ef39-9032-4041-b790-90a504b87246"))
+        milkRef.child("Milk").child("product405").setValue(ProductTest(405,"Кефир Село зеленое", 70,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fkefir2.jpg?alt=media&token=7366e626-8b4f-4b78-b325-5194e9b36edb"))
+
+        //Йогурты
+        milkRef.child("Yoghurts").child("product411").setValue(ProductTest(411,"Йогурт Чудо", 65,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fyogurt4.jpg?alt=media&token=d4b9e357-2f4c-495a-bb41-fd7b6604fa7f"))
+        milkRef.child("Yoghurts").child("product412").setValue(ProductTest(412,"Йогурт Активия", 65,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fyogurt3.jpg?alt=media&token=5973b54e-7255-42c8-ac57-1238417c9c89"))
+        milkRef.child("Yoghurts").child("product413").setValue(ProductTest(413,"Йогурт Нежный", 65,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fyogurt2.jpg?alt=media&token=a6c95f43-ce7e-45e3-9d27-fb02f98076ff"))
+        milkRef.child("Yoghurts").child("product414").setValue(ProductTest(414,"Йогурт Даниссимо", 65,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fyogurt.jpg?alt=media&token=19235462-5725-42cb-9740-36951dbd6d6d"))
+
+        //Масло, сметана, майонез, сгущенка, сыр
+        milkRef.child("Butters").child("product421").setValue(ProductTest(421,"Масло Крестъянское", 130,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fmaslo.jpg?alt=media&token=f0d03f5e-7936-418b-8c05-86d88c72269e"))
+        milkRef.child("Butters").child("product422").setValue(ProductTest(422,"Сметана Простоквашино", 110,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fsmetana.jpg?alt=media&token=81ea0148-e10f-4389-9d4f-0337e9451cf5"))
+        milkRef.child("Butters").child("product423").setValue(ProductTest(423,"Сыр Село зеленое", 130,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fsir3.jpg?alt=media&token=b93ce76b-44f8-4817-aa89-ec47d34617fb"))
+        milkRef.child("Butters").child("product424").setValue(ProductTest(424,"Сыр Хохланд", 130,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fsir2.jpg?alt=media&token=c942d763-1c2c-4493-a638-547e5ba18ffd"))
+        milkRef.child("Butters").child("product425").setValue(ProductTest(425,"Сыр Президент", 130,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Fsir.jpg?alt=media&token=c7bc7119-d60a-42e6-9447-456c1df2f45f"))
+
+        //Eggs
+        milkRef.child("Eggs").child("product431").setValue(ProductTest(431,"Яйца", 80,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmilk%2Feggs.jpg?alt=media&token=dbdd0cef-c142-4e61-9b5a-774665a722f2"))
 /*
         meatRef.child("products").child("product201").setValue(ProductTest("мясо 1", 30))
         meatRef.child("products").child("product202").setValue(ProductTest("Mясо 2", 40))

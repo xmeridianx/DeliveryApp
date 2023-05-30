@@ -2,6 +2,7 @@ package com.example.meatdeliveryapp.categories
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.database.ktx.values
+import kotlinx.coroutines.tasks.await
 import java.util.concurrent.ExecutionException
 
 
@@ -29,6 +32,7 @@ class BreadFragment : Fragment(), OnProductClickListener {
     private lateinit var database: FirebaseDatabase
     private val handler = Handler()
     private lateinit var categoryRef: DatabaseReference
+    private lateinit var threadCategory: Thread
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +51,14 @@ class BreadFragment : Fragment(), OnProductClickListener {
             requireActivity().onBackPressed()
         }
         SingletonCart.loadProductList(requireContext())
+        //убрать размер адаптеров, задав значения
+
+        threadCategory = Thread{
+            val category = Tasks.await(categoryRef.child("Bread_products").get()).getValue<Map<String,Map<String, Product>>>()
+
+        }
+        threadCategory.start()
+
         adapters = Array(3) { AdapterProduct(mutableListOf(), this) }
         productRefs = arrayOf(
             categoryRef.child("Bread_products").child("Bread"),
