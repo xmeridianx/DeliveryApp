@@ -31,24 +31,6 @@
                 android:orientation="vertical">
 
 
-
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"
-                    android:text="Мороженое"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-
-
                 <TextView
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
@@ -63,7 +45,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler2"
+                    android:id="@+id/recycler1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
@@ -74,7 +56,23 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"
-                    android:text="Конфеты"
+                    android:text="Конфеты, Батончики"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:text="Печенье, вафли"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -90,7 +88,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"
-                    android:text="Печенье, крекеры"
+                    android:text="Жевательные резинки, конфеты и леденцы"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -106,39 +104,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"
-                    android:text="Жевательные резинки, конфеты и леденцы"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"
-                    android:text="Варенье, джем, мед"
-                    android:textSize="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-                <TextView
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"
-                    android:text="Пряники, вафли, кексы, рулеты"
+                    android:text="Варенье, джем, мед, Пасты"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -146,7 +112,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginBottom="100dp"
-                    android:id="@+id/recycler7"
+                    android:id="@+id/recycler5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

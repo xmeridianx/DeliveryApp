@@ -2,7 +2,6 @@ package com.example.meatdeliveryapp
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.example.meatdeliveryapp.categories.MyApp
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

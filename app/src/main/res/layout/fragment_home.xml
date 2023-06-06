@@ -525,15 +525,15 @@
         </FrameLayout>
 
         <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/sauceView"
-            android:background="@drawable/gradient_sauce"
+            android:id="@+id/cleaningView"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/gradient_home"
             android:layout_width="180dp"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sauce"
+                android:text="@string/cleaning"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="110dp"
                 android:textSize="18sp"
@@ -541,11 +541,11 @@
             <ImageView
                 android:layout_marginTop="6dp"
                 android:padding="4dp"
-                android:id="@+id/sauceImageView"
+                android:id="@+id/cleaningImageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="90dp"
-                android:src="@drawable/sauce" />
+                android:src="@drawable/forhome" />
         </FrameLayout>
     </LinearLayout>
 
@@ -636,61 +636,6 @@
 
         <FrameLayout
             android:layout_marginStart="5dp"
-            android:id="@+id/hygieneView"
-            android:background="@drawable/gradient_hygiene"
-            android:layout_width="180dp"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hygiene"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/hygieneImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/hygiene" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/cleaningView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_home"
-            android:layout_width="180dp"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cleaning"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/cleaningImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/forhome" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_marginStart="5dp"
             android:id="@+id/medicineView"
             android:background="@drawable/gradient_medicine"
             android:layout_width="180dp"
@@ -712,6 +657,17 @@
                 android:layout_marginStart="90dp"
                 android:src="@drawable/medical" />
         </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
     </LinearLayout>
 
 </LinearLayout>

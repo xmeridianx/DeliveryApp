@@ -1,4 +1,4 @@
-package com.example.meatdeliveryapp.categories
+package com.example.meatdeliveryapp
 
 import android.app.Application
 

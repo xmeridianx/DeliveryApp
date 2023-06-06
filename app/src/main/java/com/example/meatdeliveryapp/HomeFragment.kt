@@ -75,10 +75,6 @@ class HomeFragment : Fragment() {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.replace(R.id.container, OilAndSpicesFragment())?.addToBackStack(null)?.commit()
         }
-        binding.sauceView.setOnClickListener {
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.replace(R.id.container, SauceFragment())?.addToBackStack(null)?.commit()
-        }
         binding.snacksView.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.replace(R.id.container, SnacksFragment())?.addToBackStack(null)?.commit()
@@ -90,10 +86,6 @@ class HomeFragment : Fragment() {
         binding.babyFoodView.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.replace(R.id.container, BabyFoodFragment())?.addToBackStack(null)?.commit()
-        }
-        binding.hygieneView.setOnClickListener {
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.replace(R.id.container, HygieneFragment())?.addToBackStack(null)?.commit()
         }
         binding.cleaningView.setOnClickListener {
             val transaction = fragmentManager?.beginTransaction()
