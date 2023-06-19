@@ -23,16 +23,26 @@ class SupportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*
         binding.adminButton.setOnClickListener {
             val intent = Intent(activity, AdminActivity::class.java)
             activity?.startActivity(intent)
         }
+         */
 
-    }
+        binding.textView1.setOnClickListener {
+            val intent = Intent(activity, TermsOfUse::class.java)
+            activity?.startActivity(intent)
+        }
+        binding.textView2.setOnClickListener {
+            val intent = Intent(activity, QuestionsAndAnswers::class.java)
+            activity?.startActivity(intent)
+        }
+        binding.textView3.setOnClickListener {
+            val intent = Intent(activity, Support::class.java)
+            activity?.startActivity(intent)
+        }
 
-    companion object {
 
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) = SupportFragment()
     }
 }

@@ -6,17 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Registration">
 
-    <EditText
-        android:id="@+id/editTextRegistrationPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:hint="Номер телефона"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationName" />
+
 
     <TextView
         android:id="@+id/textViewRegistration"
@@ -54,69 +44,26 @@
         app:layout_constraintTop_toBottomOf="@id/editTextRegistrationLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/editTextRegistrationName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Имя"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/editTextRegistrationCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Город"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationPhone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
-        android:id="@+id/editTextRegistrationStreet"
+        android:id="@+id/editTextRegistrationPasswordConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Улица"
+        android:hint="Повторите пароль"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationCity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/editTextRegistrationHouse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Дом"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationStreet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-        android:id="@+id/editTextRegistrationApartment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Квартира"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationHouse"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
+        android:backgroundTint="#4CAF50"
         android:id="@+id/buttonRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Регистрация"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationApartment"
+        app:layout_constraintTop_toBottomOf="@id/editTextRegistrationPasswordConfirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

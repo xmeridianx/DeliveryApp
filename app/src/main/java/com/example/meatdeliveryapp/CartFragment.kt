@@ -26,6 +26,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     private lateinit var ref: DatabaseReference
     private lateinit var sharedPreferences: SharedPreferences
     private var totalPrice = 0.0
+    private lateinit var orderRef: DatabaseReference
 
     val onProductChangeListener = object : OnProductChangeListener {
         override fun onProductAdded(product: Product) {
@@ -54,6 +55,7 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         SingletonCart.loadProductList(requireContext())
+
         adapter = Adapter(SingletonCart.getProductList().toMutableList(), onProductChangeListener)
         adapter.setOnProductCountChangeListener(this)
 
@@ -61,13 +63,13 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
             requireActivity().onBackPressed()
         }
         binding.toolbarCart.setOnMenuItemClickListener { menuItem ->
-            if (menuItem.itemId == R.id.menu_delete){
-                    SingletonCart.clear()
-                    SingletonCart.saveProductList(requireContext())
-                    adapter.notifyDataSetChanged()
-                    updateTotalPrice()
+            if (menuItem.itemId == R.id.menu_delete) {
+                SingletonCart.clear()
+                SingletonCart.saveProductList(requireContext())
+                adapter.notifyDataSetChanged()
+                updateTotalPrice()
                 true
-            }else{
+            } else {
                 false
             }
 
@@ -84,12 +86,29 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         ref = FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
             .getReference("Users").child(auth.currentUser!!.uid)
 
+        orderRef = FirebaseDatabase.getInstance().reference.child("Users")
+            .child(auth.currentUser!!.uid)
+            .child("Orders")
+
+
+        binding.productPriceTextView.text = "Стоимость продуктов: $totalPrice"
 
         binding.orderCartButton.setOnClickListener {
+            val order = HashMap<String, Any>()
+            order["products"] = SingletonCart.getProductList().map { Gson().toJson(it) }
+            order["status"] = "В ожидании"
             ref.child(auth.currentUser!!.uid).child("products")
-                .setValue(SingletonCart.getProductList().toString() + "общая стоимость: " + totalPrice.toString() + " + 190р доставка")
+                .setValue(
+                    SingletonCart.getProductList()
+                        .toString() + "общая стоимость: " + totalPrice.toString() + " + 190р доставка"
+                )
+            orderRef.child("Orders").setValue(order)
+                .addOnSuccessListener {
+                    ref.child("orderStatus").setValue("Есть активный заказ")
+                }
             adapter.notifyDataSetChanged()
-            ref = FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
+            ref =
+                FirebaseDatabase.getInstance("https://delivery-bf3b3-default-rtdb.firebaseio.com/")
                     .getReference("Users").child(auth.currentUser!!.uid)
 
             setDatabaseListener()
@@ -126,21 +145,24 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val street = snapshot.value as? String ?: ""
 
-                        val adressHouse = FirebaseDatabase.getInstance().reference.child("Users").child(
-                            Firebase.auth.currentUser?.uid ?: ""
-                        ).child("дом")
+                        val adressHouse =
+                            FirebaseDatabase.getInstance().reference.child("Users").child(
+                                Firebase.auth.currentUser?.uid ?: ""
+                            ).child("дом")
                         adressHouse.addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val house = snapshot.value as? String ?: ""
 
-                                val adressApartment = FirebaseDatabase.getInstance().reference.child("Users").child(
-                                    Firebase.auth.currentUser?.uid ?: ""
-                                ).child("квартира")
+                                val adressApartment =
+                                    FirebaseDatabase.getInstance().reference.child("Users").child(
+                                        Firebase.auth.currentUser?.uid ?: ""
+                                    ).child("квартира")
                                 adressApartment.addValueEventListener(object : ValueEventListener {
                                     override fun onDataChange(snapshot: DataSnapshot) {
                                         val apartment = snapshot.value as? String ?: ""
 
-                                        binding.address.text = "Ваш адрес: $city, ул: $street, дом: $house, квартира: $apartment"
+                                        binding.address.text =
+                                            "Ваш адрес: $city, ул: $street, дом: $house, квартира: $apartment"
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
@@ -168,15 +190,16 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     }
 
     override fun onProductAdded(product: Product) {
-            val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
-            if (index != -1) {
-                SingletonCart.getProductList()[index].quantity++
-            } else {
-                SingletonCart.addProduct(product)
-            }
-            calculateTotalPrice(cart)
-            adapter.notifyDataSetChanged()
+        val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
+        if (index != -1) {
+            SingletonCart.getProductList()[index].quantity++
+        } else {
+            SingletonCart.addProduct(product)
+        }
+        calculateTotalPrice(cart)
+        adapter.notifyDataSetChanged()
     }
+
     override fun onResume() {
         super.onResume()
         adapter.notifyDataSetChanged()
@@ -185,13 +208,13 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
 
     override fun onProductRemoved(product: Product) {
 
-            val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
-            if (index != -1) {
-                if (SingletonCart.getProductList()[index].quantity == 1) {
-                    SingletonCart.deleteProduct(product)
-                } else {
-                    SingletonCart.getProductList()[index].quantity--
-                }
+        val index = SingletonCart.getProductList().indexOfFirst { it.name == product.name }
+        if (index != -1) {
+            if (SingletonCart.getProductList()[index].quantity == 1) {
+                SingletonCart.deleteProduct(product)
+            } else {
+                SingletonCart.getProductList()[index].quantity--
+            }
             calculateTotalPrice(cart)
             adapter.notifyDataSetChanged()
         }
@@ -206,11 +229,11 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     }
 
     private fun updateTotalPrice() {
-        val productList: MutableList<Product> = SingletonCart.getProductList() as MutableList<Product>
+        val productList: MutableList<Product> =
+            SingletonCart.getProductList() as MutableList<Product>
         totalPrice = calculateTotalPrice(productList)
         binding.totalPriceTextView.text = "Итого: ${"%.2f".format(totalPrice + 190)} Р"
     }
-
 
 
     private fun setDatabaseListener() {
@@ -239,9 +262,6 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
     }
 
 
-
-
-
     companion object {
 
         @JvmStatic
@@ -259,104 +279,4 @@ class CartFragment : Fragment(),OnProductChangeListener, OnProductCountChangeLis
         updateTotalPrice()
         SingletonCart.saveProductList(requireContext())
     }
-/*
-    private fun saveProductsToSharedPreferences(products: List<Product>) {
-
-        val productsJson = gson.toJson(products)
-        sharedPreferences.edit().putStringSet("products_list", setOf(productsJson)).apply()
-    }
-
- */
-/*
-    private fun readProductsFromSharedPreferences(): MutableList<Product> {
-
-        val productsJson = sharedPreferences.getString("product_list", null)
-        val productList = if (productsJson != null) {
-            gson.fromJson(productsJson, object : TypeToken<MutableList<Product>>() {}.type)
-        } else {
-            emptyList<Product>()
-        }
-
-        return productList as MutableList<Product>
-    }
-
- */
 }
-    /*
-override fun onStart() {
-    super.onStart()
-    val productListJson = sharedPreferences.getString("product_list", "[]")
-    val productListType = object : TypeToken<ArrayList<Product>>() {}.type
-    val productList: ArrayList<Product> = gson.fromJson(productListJson, productListType)
-    for (product in productList) {
-        SingletonCart.addProduct(product)
-    }
-
-}
-override fun onResume() {
-    super.onResume()
-    val productListJson = sharedPreferences.getString("product_list", "[]")
-    val productListType = object : TypeToken<ArrayList<Product>>() {}.type
-    val productList: ArrayList<Product> = gson.fromJson(productListJson, productListType)
-    for (product in productList) {
-        SingletonCart.addProduct(product)
-    }
-
-}
-
-//потом добавлю адрес
-val adressCity = FirebaseDatabase.getInstance().reference.child("Users").child(
-            Firebase.auth.currentUser?.uid ?: ""
-        ).child("город")
-        adressCity.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val city = snapshot.value as? String ?: ""
-
-                val adressStreet = FirebaseDatabase.getInstance().reference.child("Users").child(
-                    Firebase.auth.currentUser?.uid ?: ""
-                ).child("улица")
-                adressStreet.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val street = snapshot.value as? String ?: ""
-
-                        val adressHouse = FirebaseDatabase.getInstance().reference.child("Users").child(
-                            Firebase.auth.currentUser?.uid ?: ""
-                        ).child("дом")
-                        adressHouse.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                val house = snapshot.value as? String ?: ""
-
-                                val adressApartment = FirebaseDatabase.getInstance().reference.child("Users").child(
-                                    Firebase.auth.currentUser?.uid ?: ""
-                                ).child("квартира")
-                                adressApartment.addValueEventListener(object : ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
-                                        val apartment = snapshot.value as? String ?: ""
-
-                                        binding.address.text = "Ваш адрес: $city, ул: $street, дом: $house, квартира: $apartment"
-                                    }
-
-                                    override fun onCancelled(error: DatabaseError) {
-
-                                    }
-                                })
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-
-                            }
-                        })
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-
-                    }
-                })
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
- */

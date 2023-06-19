@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toolbar
 import com.example.meatdeliveryapp.categories.BreadFragment
 import com.example.meatdeliveryapp.categories.MeatFragment
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+    fun setBottomAppBarVisibility(visible: Boolean) {
+        binding.bottomAppBar.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
 

@@ -7,7 +7,7 @@ class productBase {
 
     val categoryNames = listOf("Bread_products", "Vegetables_fruits", "Grocery", "Milk_eggs", "Sweets",
         "Fish", "Meat", "Drinks", "Canned", "Frozen_food",
-        "Oil_spices", "Snacks" , "Coffee_tea", "Baby", "Cleaning" , "Medicine" )
+        "Oil_spices", "Snacks" , "Coffee_tea", "Baby", "Cleaning" , "Medicine", "Popular")
     val categoriesRef = Firebase.database.getReference("Categories")
 
     val categoryRefs = categoryNames.map { categoriesRef.child(it) }
@@ -30,6 +30,7 @@ class productBase {
         val babyRef = categoryRefs[13]
         val cleaningRef = categoryRefs[14]
         val medicineRef = categoryRefs[15]
+        val popularRef = categoryRefs[16]
 
         //Хлебобулочные изделия
         //Хлеб
@@ -445,7 +446,7 @@ class productBase {
         //Сухарики
         snacksRef.child("crackers").child("product1221").setValue(ProductTest(1221,"Сухарики Хрустим", 90,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fsnacks%2Fhrusteam.jpg?alt=media&token=df917805-33c1-4615-830b-9bde8114a744&_gl=1*fw5t7p*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA3NDY2OS40My4xLjE2ODYwNzU2MzQuMC4wLjA."))
-        snacksRef.child("crackers").child("product1221").setValue(ProductTest(1221,"Сухарики Фишка", 90,
+        snacksRef.child("crackers").child("product1222").setValue(ProductTest(1222,"Сухарики Фишка", 90,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fsnacks%2Ffishka.jpg?alt=media&token=76a1dd81-ceff-49d7-82a0-cb859ab786be&_gl=1*6duv93*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA3NDY2OS40My4xLjE2ODYwNzU2MzEuMC4wLjA."))
 
 
@@ -474,9 +475,9 @@ class productBase {
         //Для туалета
         cleaningRef.child("toilet").child("product1321").setValue(ProductTest(1321,"Ароматизатор Аир Вик", 90,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Ffor_home%2Faroma.jpg?alt=media&token=175aacc3-a306-4e0e-a3dc-3d2f076d1203&_gl=1*iwurjc*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA3NDY2OS40My4xLjE2ODYwNzc2NzkuMC4wLjA."))
-        cleaningRef.child("toilet").child("product1321").setValue(ProductTest(1321,"Туалетная бумага Зева", 90,
+        cleaningRef.child("toilet").child("product1322").setValue(ProductTest(1322,"Туалетная бумага Зева", 90,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Ffor_home%2Ftualetnaya1.jpg?alt=media&token=1bfc7121-c61d-4356-877c-b2971a0e3e06&_gl=1*4avmdh*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA3NDY2OS40My4xLjE2ODYwNzc2NzIuMC4wLjA."))
-        cleaningRef.child("toilet").child("product1321").setValue(ProductTest(1321,"Салфетки универсальные", 90,
+        cleaningRef.child("toilet").child("product1323").setValue(ProductTest(1323,"Салфетки универсальные", 90,
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Ffor_home%2Fpolotenca.jpg?alt=media&token=3d697a75-5b9e-4b17-ac84-0f6bc86e3020&_gl=1*dw6pur*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA3NDY2OS40My4xLjE2ODYwNzc2NzUuMC4wLjA."))
 
 
@@ -542,6 +543,29 @@ class productBase {
             "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fmedicine%2Fphoto_2023-05-23_20-07-02.jpg?alt=media&token=5faaf424-f88d-4836-879c-4754eb24673b&_gl=1*jl00q7*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjA4MzAzNi40NC4xLjE2ODYwODQwNDUuMC4wLjA."))
 
 
+        //Популярные
+        popularRef.child("popular").child("product1701").setValue(ProductTest(1701,"Гриль", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fgril.jpg?alt=media&token=4e314a2d-1774-4eee-abe2-b7a852b30565&_gl=1*1wggljx*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI3OTYuMC4wLjA."))
+        popularRef.child("popular").child("product1702").setValue(ProductTest(1702,"Мангал", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fmangal.jpg?alt=media&token=7826568b-a284-4039-9af7-01b506585d86&_gl=1*1u7xp89*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI4MDIuMC4wLjA."))
+        popularRef.child("popular").child("product1703").setValue(ProductTest(1703,"Розжиг", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Frozhig.jpg?alt=media&token=027b26d6-d297-4de2-95cb-d8098b8a7e90&_gl=1*1mlybvj*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI4MDUuMC4wLjA."))
+        popularRef.child("popular").child("product1704").setValue(ProductTest(1704,"Салфетки бумажные", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fsalfetki.jpg?alt=media&token=6221fb07-d605-4da6-9f60-e7ee1aea4fd5&_gl=1*1eqb1sw*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI4MDcuMC4wLjA."))
+        popularRef.child("popular").child("product1705").setValue(ProductTest(1705,"Шампуры", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fshampuri.jpg?alt=media&token=8070b0b7-ed24-4754-9450-ee2a18fd19ba&_gl=1*n6dk1y*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI4MTAuMC4wLjA."))
+        popularRef.child("popular").child("product1706").setValue(ProductTest(1706,"Спички", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fspichki.jpg?alt=media&token=016641d7-1c37-4d3e-a219-93c3f5dd90f4&_gl=1*1s99hvb*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5NjcuMC4wLjA."))
+        popularRef.child("popular").child("product1707").setValue(ProductTest(1707,"Стаканы", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fstakani.jpg?alt=media&token=f4011d0f-c333-47c5-aa93-871a1b6c410d&_gl=1*rssy9*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5NzAuMC4wLjA."))
+        popularRef.child("popular").child("product1708").setValue(ProductTest(1708,"Тарелки", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Ftarelki.jpg?alt=media&token=b46e5aca-4b78-47a4-ac8d-7ea21cb14e8e&_gl=1*6x9ulb*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5NzMuMC4wLjA."))
+        popularRef.child("popular").child("product1709").setValue(ProductTest(1709,"Уголь", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fugol.jpg?alt=media&token=dd277726-e38c-4ad4-89de-b186b6e21845&_gl=1*cd0pab*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5NzUuMC4wLjA."))
+        popularRef.child("popular").child("product1710").setValue(ProductTest(1710,"Вилки", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fvilki.jpg?alt=media&token=fcca4b77-1e69-48fe-9904-957b68fac5e7&_gl=1*hwpcee*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5NzguMC4wLjA."))
+        popularRef.child("popular").child("product1711").setValue(ProductTest(1711,"Зажигалка", 90,
+            "https://firebasestorage.googleapis.com/v0/b/delivery-bf3b3.appspot.com/o/images%2Fpopular%2Fzajigalka.jpg?alt=media&token=974eb021-cef0-4d6f-b81b-8a4ead7b8532&_gl=1*1r3v010*_ga*NDMyMDIyNDUzLjE2ODM4NDA3NTQ.*_ga_CW55HF8NVT*MTY4NjEzMjU3OC40Ni4xLjE2ODYxMzI5ODAuMC4wLjA."))
 
     }
 }

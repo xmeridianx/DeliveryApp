@@ -28,39 +28,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbarCart"
-                android:text="Ваш адрес: г.Казань, ул Аделя кутуя 2, кв 11"
+                android:text="Ваш адрес: "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
 
 
-            <FrameLayout
-                android:id="@+id/container_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                app:layout_constraintBottom_toTopOf="@+id/product_price_text_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/address">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address"
+                    app:layout_constraintBottom_toTopOf="@id/productPriceTextView"
                     android:id="@+id/cartRecycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-
-                     />
-            </FrameLayout>
+                    android:layout_height="400dp"
+                    android:orientation="vertical"/>
 
     <TextView
-        android:id="@+id/product_price_text_view"
+        android:id="@+id/productPriceTextView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="Сумма заказа: 0 P"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/container_recycler"
+        app:layout_constraintBottom_toTopOf="@id/delivery_price_text_view"
         app:layout_constraintStart_toStartOf="parent"
         />
 
@@ -72,7 +65,7 @@
         android:layout_marginEnd="10dp"
         android:text="Доставка: 190 P"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/product_price_text_view"
+        app:layout_constraintBottom_toTopOf="@id/total_price_text_view"
         app:layout_constraintStart_toStartOf="parent"
         />
 
@@ -86,22 +79,22 @@
         android:text="Итого: 190 P"
         android:textColor="@color/black"
         android:textSize="26sp"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_price_text_view"
+        app:layout_constraintBottom_toTopOf="@id/orderCartButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/orderCartButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/sea_green"
         android:drawableStart="@android:drawable/ic_menu_delete"
         android:paddingHorizontal="8dp"
         android:text="Заказать"
-        app:layout_constraintTop_toBottomOf="@+id/total_price_text_view"
-        app:layout_constraintStart_toStartOf="@id/container_recycler"
-        app:layout_constraintEnd_toEndOf="@id/container_recycler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
 

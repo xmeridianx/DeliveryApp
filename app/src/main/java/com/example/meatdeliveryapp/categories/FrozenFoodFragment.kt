@@ -49,7 +49,7 @@ class FrozenFoodFragment : Fragment(), OnProductClickListener {
         }
         SingletonCart.loadProductList(requireContext())
 
-        adapters = Array(2) { AdapterProduct(mutableListOf(), this) }
+        adapters = Array(3) { AdapterProduct(mutableListOf(), this) }
         productRefs = arrayOf(
             categoryRef.child("Frozen_food").child("dumplings"),
             categoryRef.child("Frozen_food").child("semimanufactures"),
@@ -58,7 +58,7 @@ class FrozenFoodFragment : Fragment(), OnProductClickListener {
 
 
 
-        thread = Array(2) { Thread() }
+        thread = Array(3) { Thread() }
 
 
         thread[0] = Thread {

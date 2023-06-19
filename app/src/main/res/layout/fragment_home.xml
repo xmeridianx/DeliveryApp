@@ -27,13 +27,13 @@
 
         <TextView
             android:padding="8dp"
-            android:text="Работаем в тестовом режиме с 8:00 до 22:00"
+            android:text="Работаем в тестовом режиме с 10:00 до 22:00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
@@ -46,179 +46,11 @@
             android:layout_height="wrap_content"/>
 
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <FrameLayout
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/gradient"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мясо"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="110dp"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="60dp"
-                    android:src="@drawable/meat" />
-            </FrameLayout>
-            <FrameLayout
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/gradient"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мясо"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="110dp"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="60dp"
-                    android:src="@drawable/meat" />
-            </FrameLayout>
-            <FrameLayout
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/gradient"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мясо"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="110dp"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="60dp"
-                    android:src="@drawable/meat" />
-            </FrameLayout>
-            <FrameLayout
-                android:id="@+id/buttonMeat1"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:layout_marginEnd="10dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textCoffeeOne"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="мясо"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/imageCoffeeOne"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:src="@drawable/napitki" />
-
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="160р"
-                    android:textSize="20sp" />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/buttonAddCoffeeOne"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:text="+" />
-
-                        <Button
-                            android:id="@+id/buttonRemoveCoffeeOne"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:text="-" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/buttonMeat2"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/gradient"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мясо"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="110dp"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-                <ImageView
-                    android:id="@+id/imageViewMeat2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="60dp"
-                    android:src="@drawable/meat" />
-            </FrameLayout>
-            <FrameLayout
-                android:id="@+id/buttonMeat3"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/gradient"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Мясо"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="110dp"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
-                <ImageView
-                    android:id="@+id/imageViewMeat3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="60dp"
-                    android:src="@drawable/meat" />
-            </FrameLayout>
-
-        </LinearLayout>
-        </HorizontalScrollView>
 
     </LinearLayout>
 <TextView
@@ -239,7 +71,7 @@
     android:id="@+id/vegetablesView"
     android:layout_marginEnd="5dp"
     android:background="@drawable/gradient_vegetables"
-    android:layout_width="180dp"
+    android:layout_width="wrap_content"
     android:layout_height="180dp">
     <TextView
         android:layout_width="wrap_content"
@@ -262,7 +94,7 @@
         android:layout_marginStart="5dp"
         android:id="@+id/breadView"
         android:background="@drawable/gradient_bread"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="180dp">
         <TextView
             android:layout_width="wrap_content"
@@ -291,7 +123,7 @@
             android:id="@+id/groceryView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_grocery"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -314,7 +146,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/milkView"
             android:background="@drawable/gradient_milk"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -343,7 +175,7 @@
             android:id="@+id/sweetsView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_sweet"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -366,7 +198,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/fishView"
             android:background="@drawable/gradient_fish"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -396,7 +228,7 @@
             android:id="@+id/meatView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -420,7 +252,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/drinksView"
             android:background="@drawable/gradient_drinks"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -450,12 +282,12 @@
             android:id="@+id/cannedFoodView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_canned"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Консервированные продукты"
+                android:text="Консервирвы"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="110dp"
                 android:textSize="18sp"
@@ -474,12 +306,12 @@
             android:layout_marginStart="5dp"
             android:id="@+id/frozenFoodView"
             android:background="@drawable/frozen_gradient"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/frozenFood"
+                android:text="Заморозка"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="110dp"
                 android:textSize="18sp"
@@ -504,12 +336,12 @@
             android:id="@+id/oilAndSpicesView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_oil"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/oilAndSpices"
+                android:text="Масло, специи"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="110dp"
                 android:textSize="18sp"
@@ -526,9 +358,9 @@
 
         <FrameLayout
             android:id="@+id/cleaningView"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/gradient_home"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -559,7 +391,7 @@
             android:id="@+id/snacksView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_snacks"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -583,7 +415,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/coffeeAndTeaView"
             android:background="@drawable/gradient_coffee"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -614,7 +446,7 @@
             android:id="@+id/babyFoodView"
             android:layout_marginEnd="5dp"
             android:background="@drawable/gradient_baby"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -638,7 +470,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/medicineView"
             android:background="@drawable/gradient_medicine"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="180dp">
             <TextView
                 android:layout_width="wrap_content"

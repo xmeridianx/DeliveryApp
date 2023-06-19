@@ -1,60 +1,133 @@
 package com.example.meatdeliveryapp.categories
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.meatdeliveryapp.Product
 import com.example.meatdeliveryapp.R
+import com.example.meatdeliveryapp.SingletonCart
+import com.example.meatdeliveryapp.databinding.FragmentMedicineBinding
+import com.example.meatdeliveryapp.databinding.FragmentSnacksBinding
+import com.example.meatdeliveryapp.recyclerProduct.AdapterProduct
+import com.example.meatdeliveryapp.recyclerProduct.OnProductClickListener
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.getValue
+import java.util.concurrent.ExecutionException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MedicineFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MedicineFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class MedicineFragment : Fragment(), OnProductClickListener {
+    private lateinit var binding: FragmentMedicineBinding
+    private lateinit var adapters: Array<AdapterProduct>
+    private lateinit var productRefs: Array<DatabaseReference>
+    private lateinit var thread: Thread
+    private lateinit var database: FirebaseDatabase
+    private val handler = Handler()
+    private lateinit var categoryRef: DatabaseReference
+    private lateinit var threadCategory: Thread
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medicine, container, false)
+        binding = FragmentMedicineBinding.inflate(layoutInflater)
+        return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        database = FirebaseDatabase.getInstance()
+        categoryRef = database.getReference("Categories")
+
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        SingletonCart.loadProductList(requireContext())
+
+        adapters = Array(1) { AdapterProduct(mutableListOf(), this) }
+        productRefs = arrayOf(
+            categoryRef.child("Medicine").child("medicine"))
+
+
+
+
+        thread = Thread {
+            val productList = loadData(productRefs[0])
+            adapters[0] = AdapterProduct(productList, this)
+            val layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL, false
+            )
+            handler.post {
+                binding.recycler.adapter = adapters[0]
+                binding.recycler.layoutManager = layoutManager
+
+            }
+        }
+        thread.start()
+
+
+
+    }
+
+    private fun loadData(productRefs: DatabaseReference): MutableList<Product> {
+        val productList = mutableListOf<Product>()
+
+        try {
+            val products = Tasks.await(productRefs.get())
+            val p = ArrayList<Product>(products.getValue<Map<String, Product>>()!!.values)
+
+            productList.addAll(p)
+        } catch (e: ExecutionException) {
+            e.printStackTrace()
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+        return productList
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SingletonCart.saveProductList(requireContext())
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        thread.interrupt()
+
+    }
+
+    override fun onResume() {
+        SingletonCart.loadProductList(requireContext())
+        super.onResume()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MedicineFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MedicineFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = BreadFragment()
+    }
+
+    override fun onAddProduct(product: Product) {
+        SingletonCart.addProduct(
+            Product(
+                quantity = 1,
+                name = product.name,
+                id = product.id,
+                price = product.price,
+                imageUrl = product.imageUrl
+            )
+        )
+        Toast.makeText(activity, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDeleteProduct(product: Product) {
+        SingletonCart.deleteProduct(product)
+        Toast.makeText(activity, "Удалено из корзины", Toast.LENGTH_SHORT).show()
     }
 }
