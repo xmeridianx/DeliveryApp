@@ -8,13 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.meatdeliveryapp.data.Product
 
 class Adapter(
     private val list: MutableList<Product>,
     private var onProductChangeListener: OnProductChangeListener
 ) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     private lateinit var onProductCountChangeListener: OnProductCountChangeListener
-
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView){
         val name: TextView = itemView.findViewById(R.id.textProductName)
@@ -56,22 +56,35 @@ class Adapter(
         }
 
         holder.buttonDelete.setOnClickListener {
-            if (product.quantity > 1) {
-                product.quantity--
-                holder.quantity.text = product.quantity.toString()
-                notifyItemChanged(position)
-            } else {
-                SingletonCart.deleteProduct(product)
-                list.removeAt(position)
-                notifyItemRemoved(position)
-                onProductCountChangeListener.onProductCountChanged(list.size)
-        }
-
+            if (list.isNotEmpty()) {
+                val product = list[position]
+                if (product.quantity > 1) {
+                    product.quantity--
+                    holder.quantity.text = product.quantity.toString()
+                    notifyItemChanged(position)
+                } else {
+                    SingletonCart.deleteProduct(product)
+                    if (list.size > 1) {
+                        list.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, list.size - position)
+                    } else {
+                        list.removeAt(position)
+                        notifyItemRemoved(position)
+                        onProductCountChangeListener.onProductCountChanged(list.size)
+                    }
+                }
+            }
     }
 
 }
 
+    //добавить метод удаления
+
     override fun getItemCount(): Int {
         return list.size
+    }
+    fun clear(){
+        return list.clear()
     }
 }

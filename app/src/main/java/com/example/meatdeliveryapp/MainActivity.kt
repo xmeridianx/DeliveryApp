@@ -5,21 +5,28 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toolbar
-import com.example.meatdeliveryapp.categories.BreadFragment
-import com.example.meatdeliveryapp.categories.MeatFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.meatdeliveryapp.databinding.ActivityMainBinding
+import com.example.meatdeliveryapp.categoryList.CategoryListFragment
+import com.example.meatdeliveryapp.view.CartFragment
+import com.example.meatdeliveryapp.view.HomeFragment
+import com.example.meatdeliveryapp.view.ProfileFragment
+import com.example.meatdeliveryapp.view.SupportFragment
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var vm: MainViewModel
     private lateinit var binding: ActivityMainBinding
     val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        vm = ViewModelProvider(this).get(MainViewModel::class.java)
+//поменял временно HomeFragment на HomeTestFragment
         if(isUserLoggedIn()){
-            supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment())
+            supportFragmentManager.beginTransaction().replace(R.id.container, CategoryListFragment())
                 .commit()
         }else {
             supportFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment()).commit()

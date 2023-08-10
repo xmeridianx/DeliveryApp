@@ -1,507 +1,554 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/gray"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeFragment">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:id="@+id/categoriesLinearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    tools:context=".view.HomeFragment">
 
-
-
-    <FrameLayout
-        android:layout_margin="10dp"
-        android:background="@drawable/gradient_grey"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:padding="8dp"
-            android:text="Работаем в тестовом режиме с 10:00 до 22:00"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginTop="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="Популярные товары"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popularRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
-<TextView
-    android:layout_marginTop="5dp"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:textColor="@color/black"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="@string/categories"/>
-<LinearLayout
-    android:layout_marginTop="10dp"
-    android:layout_gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-<FrameLayout
-    android:id="@+id/vegetablesView"
-    android:layout_marginEnd="5dp"
-    android:background="@drawable/gradient_vegetables"
-    android:layout_width="wrap_content"
-    android:layout_height="180dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vegetables"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="110dp"
-        android:textSize="18sp"
-        android:textStyle="normal" />
-    <ImageView
-        android:layout_marginTop="6dp"
-        android:padding="4dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="90dp"
-        android:src="@drawable/ovoshifructi" />
-</FrameLayout>
-
-    <FrameLayout
-        android:layout_marginStart="5dp"
-        android:id="@+id/breadView"
-        android:background="@drawable/gradient_bread"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/categoriesLinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bread"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="110dp"
-            android:textSize="18sp"
-            android:textStyle="normal" />
-        <ImageView
-            android:layout_marginTop="6dp"
-            android:padding="4dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="90dp"
-            android:src="@drawable/hleb" />
-    </FrameLayout>
-</LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/groceryView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_grocery"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/gradient_grey">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Работаем в тестовом режиме с 10:00 до 22:00" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Популярные товары"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popularRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:text="@string/categories"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Крупы , макароны"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/bakaleya" />
-        </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/milkView"
-            android:background="@drawable/gradient_milk"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/vegetablesView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_vegetables">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/vegetables"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/vegetables" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/breadView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_bread">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/bread"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/hleb" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Молоко и яйца"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/moloko" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/sweetsView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_sweet"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/groceryView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_grocery">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Крупы , макароны"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/bakaleya" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/milkView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_milk">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Молоко и яйца"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/moloko" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sweets"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/sladosti" />
-        </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/fishView"
-            android:background="@drawable/gradient_fish"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/sweetsView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_sweet">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/sweets"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/sladosti" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fishView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_fish">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/fish"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/imageViewBread66"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/fish" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fish"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/imageViewBread66"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/fish" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/meatView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/meatView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_meat">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Мясные продукты"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/imageViewMeat"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/meat" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/drinksView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_drinks">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/drinks"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/napitki" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Мясные продукты"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/imageViewMeat"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/meat" />
-        </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/drinksView"
-            android:background="@drawable/gradient_drinks"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/cannedFoodView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_canned">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Консервы"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/sausageImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/canned_food" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/frozenFoodView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_frozen">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Заморозка"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/frozen" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/drinks"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/napitki" />
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/cannedFoodView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_canned"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/oilAndSpicesView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_oil">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="Масло, специи"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/imageViewOilAndSpices"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/spices" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/cleaningView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_home">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/cleaning"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/cleaningImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/forhome" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Консервирвы"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/sausageImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/canned_food" />
-        </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/frozenFoodView"
-            android:background="@drawable/frozen_gradient"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/snacksView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_snacks">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/snacks"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/snacksImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/snacks" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/coffeeAndTeaView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_coffee">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/coffeeAndTea"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/coffeeAndTeaImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/coffee_tea" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Заморозка"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/frozen" />
-        </FrameLayout>
-    </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/oilAndSpicesView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_oil"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
+                <FrameLayout
+                    android:id="@+id/babyFoodView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/gradient_baby">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/babyFood"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/babyFoodImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/baby" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/medicineView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/gradient_medicine">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="110dp"
+                        android:text="@string/medicine"
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/medicineImageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="4dp"
+                        android:src="@drawable/medical" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Масло, специи"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/imageViewOilAndSpices"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/spices" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/cleaningView"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/gradient_home"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cleaning"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/cleaningImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/forhome" />
-        </FrameLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/snacksView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_snacks"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/snacks"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/snacksImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/snacks" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/coffeeAndTeaView"
-            android:background="@drawable/gradient_coffee"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/coffeeAndTea"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/coffeeAndTeaImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/coffee_tea" />
-        </FrameLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/babyFoodView"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/gradient_baby"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/babyFood"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:padding="4dp"
-                android:id="@+id/babyFoodImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/baby" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_marginStart="5dp"
-            android:id="@+id/medicineView"
-            android:background="@drawable/gradient_medicine"
-            android:layout_width="wrap_content"
-            android:layout_height="180dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medicine"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="110dp"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-            <ImageView
-                android:layout_marginTop="6dp"
-                android:id="@+id/medicineImageView"
-                android:padding="4dp"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="90dp"
-                android:src="@drawable/medical" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
+                android:orientation="horizontal">
 
 
+            </LinearLayout>
 
-    </LinearLayout>
-
-</LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

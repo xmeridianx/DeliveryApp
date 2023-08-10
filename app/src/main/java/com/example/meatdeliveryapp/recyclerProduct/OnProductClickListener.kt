@@ -1,6 +1,6 @@
 package com.example.meatdeliveryapp.recyclerProduct
 
-import com.example.meatdeliveryapp.Product
+import com.example.meatdeliveryapp.data.Product
 
 interface OnProductClickListener {
     fun onAddProduct(product: Product)

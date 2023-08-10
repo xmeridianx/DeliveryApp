@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".categories.BreadFragment">
+    tools:context=".view.categories.BreadFragment">
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerBread"
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -63,7 +63,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerBread2"
+                android:id="@+id/recycler2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -82,7 +82,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginBottom="100dp"
-                android:id="@+id/recyclerBread3"
+                android:id="@+id/recycler3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

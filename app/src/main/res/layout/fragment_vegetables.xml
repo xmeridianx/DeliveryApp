@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".categories.VegetablesAndFruitsFragment">">
+    tools:context=".view.categories.VegetablesAndFruitsFragment">">
 
     <androidx.appcompat.widget.Toolbar
         app:layout_constraintTop_toTopOf="parent"

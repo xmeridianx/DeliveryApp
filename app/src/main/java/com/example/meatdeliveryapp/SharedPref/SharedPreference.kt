@@ -3,11 +3,8 @@ package com.example.meatdeliveryapp.SharedPref
 import android.content.Context
 
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import com.example.meatdeliveryapp.Product
+import com.example.meatdeliveryapp.data.Product
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 
 public class SharedPreference (private val context: Context) {
